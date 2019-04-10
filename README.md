@@ -38,36 +38,42 @@ So each character is in a 7 by 8 pixel block. So you can fit (84/7) 12 character
 Functions
 ----------------------------------------
 
-// Construct of the class object from left to right pin 1-5(LCD)
-// RST pin 1, CD pin 2, DC pin 3, DIN pin 4, CLK pin 5  
-NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK)
+Construct of the class object from left to right pin 1-5(LCD)
+RST pin 1, CD pin 2, DC pin 3, DIN pin 4, CLK pin 5  
 
-// This sends the  commands to the PCD8544 to init LCD
-LCDInit()
+1. NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK)
 
-// gotoXY routine to position cursor 
-//  x - range: 0 to 84 (0 to 0x53)
-// y - range: 0 to 5 ( 6 blocks one byte each 6 * 8 = 48
-LCDgotoXY(uint8_t , uint8_t);
 
-//Clears the LCD by writing zeros to the entire screen
-LCDClear(void)
+This sends the  commands to the PCD8544 to init LCD
 
-//There are two  banks in the LCD, data and commands. This
-//function sets the DC pin high or low depending, and then sends
-//the data byte The first byte is one(data) or zero(cmd) , second byte data
-LCDWrite(unsigned char , unsigned char);
+2. LCDInit()
 
-//Given a string of characters, one by one is passed to the LCD
-LCDString(const char * characters);
+gotoXY routine to position cursor,  x - range: 0 to 84 (0 to 0x53), 
+y - range: 0 to 5 ( 6 blocks one byte each 6 * 8 = 48
 
-// Function to set contrast passed a byte , default BF.
-// Set LCD VOP Contrast, range = ((0x00-0x7F) |0x80) , 0xB5 = (0x35|0x80) try B1 - BF normally. 
-LCDsetContrast(uint8_t )
+3. LCDgotoXY(uint8_t , uint8_t);
 
-LCDenableSleep()
+Clears the LCD by writing zeros to the entire screen
 
-LCDdisableSleep()
+4. LCDClear(void)
+
+There are two  banks in the LCD, data and commands. 
+This function sets the DC pin high or low depending, and then sends
+the data byte The first byte is one(data) or zero(cmd) , second byte data
+
+5. LCDWrite(unsigned char , unsigned char);
+
+Given a string of characters, one by one is passed to the LCD
+
+6. LCDString(const char * characters);
+
+Function to set contrast passed a byte , default BF.
+ Set LCD VOP Contrast, range = ((0x00-0x7F) |0x80) , 0xB5 = (0x35|0x80) try B1 - BF normally. 
+
+7. LCDsetContrast(uint8_t )
+
+8. LCDenableSleep()
+9. LCDdisableSleep()
 
 Installation
 ------------------------------
@@ -77,8 +83,8 @@ Installation
 Pictures
 ---------------------------
 
-![ScreenShot schematic](https://github.com/gavinlyonsrepo/NOKIA5110_TEST/blob/master/docs/image/NOKIA.jpg)
+![ScreenShot pic](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/docs/image/NOKIA.jpg)
 
-![ScreenShot schematic](https://github.com/gavinlyonsrepo/NOKIA5110_TEST/blob/master/docs/image/NOKIA2.jpg)
+![ScreenShot pic2](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/docs/image/NOKIA2.jpg)
 
 
