@@ -2,9 +2,9 @@ Overview
 --------------------
 * Name : NOKIA5110_TEXT
 * Title : Library for Nokia 5110 LCD (PCD8544 controller) for the Arduino eco-system
-* Description : Arduino library,  ASCII character text only (12 * 6 ) 72 characters in total, Sleep mode, minimalist. Single font.
-Example program (UNO) uses 1870 bytes (5%) of program storage space. Maximum is 32256 bytes.
-Global variables use 502 bytes (24%) of dynamic memory
+* Description : Arduino library,  ASCII character text only (12 * 6 ) 72 characters in total, Sleep mode, minimalist. Single font. Example program(tested on UNO) uses 1874 bytes (5%) of program storage space. Maximum is 32256 bytes.
+Global variables use 22 bytes (1%) of dynamic memory, leaving 2026 bytes for local variables. Maximum is 2048 bytes.
+
 * Author: Gavin Lyons
 * Arduino 1.8.5
 
@@ -23,13 +23,28 @@ GPIO function on PIC, 5 Nokia 5110 LCD lines SPI bus.
 | Digital GPIO | LCD_RST Pin 1 reset|
 
 Arduino library,  ASCII character text only(12 * 6) 72 characters in total, Sleep mode, minimalist. Single font.
-Example program (tested on an UNO) uses 1870 bytes (5%) of program storage space. Maximum is 32256 bytes.
-Global variables use 502 bytes (24%) of dynamic memory.
+
+The library uses bit-banging rather than importing SPI libraries.
+
+Example program(tested on UNO) uses 1874 bytes (5%) of program storage space. Maximum is 32256 bytes.
+Global variables use 22 bytes (1%) of dynamic memory, leaving 2026 bytes for local variables. Maximum is 2048 bytes.
+
+This compares to Adafruit text based library example of 20% and 38% for program storage and global variables respectively. 
 
 The library has main 3 files (NOKIA5110_TEXT.cpp  NOKIA5110_TEXT.h and NOKIA5110_TEXT_FONT.h).
-The X-Axis has 84 columns
+
+The screen is 84  X 48 pixels. The X-Axis has 84 columns.
 The Y_Axis(rows) the 48 pixels are divided into 6 row blocks. 
 Each block containing one byte of pixels. 6 * 8 = 48.
+
+| Block number   | Pixel number Y axis|
+| ------ | ------ |
+| Block 0 | 0-7 |
+| Block 1 | 8-15 |
+| Block 2 | 16-23|
+| Block 3 | 24-31 |
+| Block 4 | 32-39 |
+| Block 5 | 40-47 |
 
 The ASCII library in font file: Each character is 5 pixel wide. Plus one pixel of empty space on each side.
 Also each character is a byte of pixels in height.
@@ -74,6 +89,13 @@ Function to set contrast passed a byte , default BF.
 
 8. LCDenableSleep()
 9. LCDdisableSleep()
+
+
+Function Clears a block(block of rows, one byte) passed block number 0-5 
+More efficient than clearing whole screen.
+
+10. LCDClearBlock(uint8_t)
+
 
 Installation
 ------------------------------

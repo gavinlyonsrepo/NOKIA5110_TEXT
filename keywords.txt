@@ -1,5 +1,5 @@
 # -----------------------------------------
-# Syntax colouring for RsbLib demo library
+# Syntax colouring for NOKIA5110_TEXT library
 # -----------------------------------------
 
 # Datatypes (such as objects)
@@ -8,12 +8,15 @@
 #Methods / functions
 
 LCDInit KEYWORD2
-LCDgotoX KEYWORD2
+LCDgotoXY KEYWORD2
 LCDClear KEYWORD2
 LCDString KEYWORD2
 LCDsetContrast KEYWORD2
 LCDenableSleep KEYWORD2
 LCDdisableSleep KEYWORD2
+LCDClearBlock  KEYWORD2
+LCDCharacter   KEYWORD2
+LCDWrite       KEYWORD2
 
 # Constants
 

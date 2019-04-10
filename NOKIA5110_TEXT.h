@@ -61,17 +61,16 @@ class NOKIA5110_TEXT {
     void LCDInit(void);
 	void LCDgotoXY(uint8_t , uint8_t);
 	void LCDClear(void);
+	void LCDClearBlock(uint8_t);
 	void LCDString(const char *characters);
     void LCDsetContrast(uint8_t );
-    void LCDenableSleep();
-    void LCDdisableSleep();
-     void LCDWrite(unsigned char , unsigned char);
-	void LCDCharacter(char); 
+    void LCDenableSleep(void);
+    void LCDdisableSleep(void);
+    void LCDCharacter(char);
+    void LCDWrite(unsigned char , unsigned char);
 
   private:
   	
-
-	
 	uint8_t _LCD_RST;
 	uint8_t _LCD_CE;
 	uint8_t _LCD_DC;

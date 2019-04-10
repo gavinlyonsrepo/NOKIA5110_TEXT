@@ -14,7 +14,6 @@
 #include "NOKIA5110_TEXT_FONT.h"
 
 
-
 NOKIA5110_TEXT::NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK) {
     
     _LCD_RST = LCD_RST;
@@ -60,6 +59,16 @@ void NOKIA5110_TEXT::LCDClear(void) {
     LCDgotoXY(0, 0); //After we clear the display, return to the home position
     }
 
+/* Function: LCDClear 
+Clears one of the 6 row blocks(one byte height) on LCD 
+by writing zeros to the line. Send the row block number 0-5
+ */
+void NOKIA5110_TEXT::LCDClearBlock(uint8_t RowBlockNum) {
+    LCDgotoXY(0, RowBlockNum);
+    for (int index = 0 ; index < (LCD_X) ; index++)
+    LCDWrite(LCD_DATA, 0x00);
+    }
+
 /* Function: gotoXY gotoXY routine to position cursor 
  x - range: 0 to 84 (0 to 0x53)
  y - range: 0 to 5 ( 6 blocks one byte each 6*8 = 48*/
@@ -102,7 +111,10 @@ pixels on each side of the character for readability.
 void NOKIA5110_TEXT::LCDCharacter(char character) {
     LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding
     for (uint8_t index = 0 ; index < 5 ; index++)
-    LCDWrite(LCD_DATA, ASCII[character - 0x20][index]);
+    {
+    LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII[character - 0x20][index])));
+    }
+    // LCDWrite(LCD_DATA, ASCII[character - 0x20][index]);
     //0x20 is the ASCII character for Space The font table starts with this character
     LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding
 }
