@@ -105,8 +105,8 @@ Installation
 Pictures
 ---------------------------
 
-![ScreenShot pic](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/docs/image/NOKIA.jpg)
+![ScreenShot pic](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA.jpg)
 
-![ScreenShot pic2](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/docs/image/NOKIA2.jpg)
+![ScreenShot pic2](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA2.jpg)
 
 
