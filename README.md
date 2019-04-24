@@ -100,6 +100,12 @@ More efficient than clearing whole screen.
 Installation
 ------------------------------
 
+The library is included in the official Arduino library manger and the optimum way to install it 
+is using the library manager which can be opened by the *manage libraries* option in Arduino IDE. 
+Search "Nokia" in search bar of library manager to find it.
+
+See link below for instruction for this and for the other methods too.
+
 [Installing Additional Arduino Libraries guide](https://www.arduino.cc/en/Guide/Libraries)
 
 Pictures
