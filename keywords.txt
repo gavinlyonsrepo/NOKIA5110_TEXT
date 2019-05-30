@@ -7,16 +7,16 @@
 
 #Methods / functions
 
-LCDInit KEYWORD2
-LCDgotoXY KEYWORD2
-LCDClear KEYWORD2
-LCDString KEYWORD2
-LCDsetContrast KEYWORD2
-LCDenableSleep KEYWORD2
-LCDdisableSleep KEYWORD2
-LCDClearBlock  KEYWORD2
-LCDCharacter   KEYWORD2
-LCDWrite       KEYWORD2
+LCDInit	KEYWORD2
+LCDgotoXY	KEYWORD2
+LCDClear	KEYWORD2
+LCDString	KEYWORD2
+LCDsetContrast	KEYWORD2
+LCDenableSleep	KEYWORD2
+LCDdisableSleep	KEYWORD2
+LCDClearBlock	KEYWORD2
+LCDCharacter	KEYWORD2
+LCDWrite	KEYWORD2
 
 # Constants
 
