@@ -50,6 +50,9 @@ The ASCII library in font file: Each character is 5 pixel wide. Plus one pixel o
 Also each character is a byte of pixels in height.
 So each character is in a 7 by 8 pixel block. So you can fit (84/7) 12 characters across columns and with (48/8) 6 row blocks that gives 72 characters in total (12X06).
 
+The library can only take in character strings so if the user wants to display numbers (ints, floats)
+They must be converted first here is an [example](https://gist.github.com/gavinlyonsrepo/85041a5dd82059a84e3bdef7b2b2a585) of one way to do this with floats.
+
 Functions
 ----------------------------------------
 
