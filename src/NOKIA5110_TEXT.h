@@ -26,8 +26,9 @@
 #define LCD_CONTRAST     0xBF  //Set LCD VOP Contrast Try 0xB1 or 0xBF if is too dark range = ((0x00-0x7F) |0x80)
 #define LCD_TEMP_COEF    0x04  //Set Temp coefficient
 #define LCD_BIAS         0x14  // //LCD bias mode 1:48: Try 0x13 or 0x14
-#define LCD_FUNCTIONSET  0x20//We must send 0x20 before modifying the display control mode
+#define LCD_FUNCTIONSET  0x20  //We must send 0x20 before modifying the display control mode
 #define LCD_DISPLAYCONTROL 0x0C //Set display control, normal mode. 0x0D for inverse
+#define LCD_DISPLAYCONTROL_INVERSE 0x0D //Set display control, inverse mode. 0x0D for inverse
 #define LCD_POWERDOWN    0x24 //LCD power off
 
 
@@ -55,31 +56,32 @@
 class NOKIA5110_TEXT {
 
   public:
-	// Constructor 
-	NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK);
-    // Methods
-    void LCDInit(void);
+   // Constructor 
+	 NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK);
+	// Methods
+	void LCDInit(bool , uint8_t , uint8_t);
 	void LCDgotoXY(uint8_t , uint8_t);
 	void LCDClear(void);
 	void LCDClearBlock(uint8_t);
 	void LCDString(const char *characters);
-    void LCDsetContrast(uint8_t );
-    void LCDenableSleep(void);
-    void LCDdisableSleep(void);
-    void LCDCharacter(char);
-    void LCDWrite(unsigned char , unsigned char);
+	void LCDsetContrast(uint8_t );
+	void LCDenableSleep(void);
+	void LCDdisableSleep(void);
+	void LCDCharacter(char);
+	void LCDWrite(unsigned char , unsigned char);
 
   private:
-  	
+
 	uint8_t _LCD_RST;
 	uint8_t _LCD_CE;
 	uint8_t _LCD_DC;
 	uint8_t _LCD_DIN;
 	uint8_t  _LCD_CLK;
 
-    uint8_t  _contrast = LCD_CONTRAST ; //Set LCD VOP Contrast, range = ((0x00-0x7F) |0x80)
+	uint8_t  _contrast = LCD_CONTRAST ; //Set LCD VOP Contrast, range = ((0x00-0x7F) |0x80)
 
 	boolean	_sleep;
+	boolean	_inverse;
 };
 
 

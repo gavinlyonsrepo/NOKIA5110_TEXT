@@ -8,6 +8,19 @@ Global variables use 22 bytes (1%) of dynamic memory, leaving 2026 bytes for loc
 * Author: Gavin Lyons
 * Arduino 1.8.5
 
+
+Installation
+------------------------------
+
+The library is included in the official Arduino library manger and the optimum way to install it 
+is using the library manager which can be opened by the *manage libraries* option in Arduino IDE. 
+Search "Nokia" in search bar of library manager to find it.
+
+See link below for instruction for this and for the other methods too.
+
+[Installing Additional Arduino Libraries guide](https://www.arduino.cc/en/Guide/Libraries)
+
+
 Features
 -------------------------
 The Nokia 5110 is a basic graphic LCD screen for lots of applications. It was originally intended to be used as a cell phone screen. It uses the PCD8544 controller, which is the same used in the Nokia 3310 LCD. The PCD8544 is a low power CMOS LCD controller/driver, designed to drive a graphic display of 48 rows and 84 columns. All necessary functions for the display are provided in a single chip, including on-chip generation of LCD supply and bias voltages, resulting in a minimum of external components and low power consumption. The PCD8544 interfaces to microcontrollers through a serial bus interface(SPI).
@@ -51,7 +64,10 @@ Also each character is a byte of pixels in height.
 So each character is in a 7 by 8 pixel block. So you can fit (84/7) 12 characters across columns and with (48/8) 6 row blocks that gives 72 characters in total (12X06).
 
 The library can only take in character strings so if the user wants to display numbers (ints, floats)
-They must be converted first here is an [example](https://gist.github.com/gavinlyonsrepo/85041a5dd82059a84e3bdef7b2b2a585) of one way to do this with floats.
+They must be converted first here is an example "NOKA5110_TEXT_DHT11.ino shows a way to do this with floats.
+
+The libray also has a Aurebesh/ASCII font file. To use this the user must change a line in cpp file.
+Comment out the marked ASCII font libray header and comment in the AUREBESH font library header.
 
 Functions
 ----------------------------------------
@@ -62,9 +78,11 @@ RST pin 1, CD pin 2, DC pin 3, DIN pin 4, CLK pin 5
 1. NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK)
 
 
-This sends the  commands to the PCD8544 to init LCD
+This sends the  commands to the PCD8544 to init LCD. Inverse inverts the
+display see image 4. Contrast, This value allows us to change LCD's contrast Try B0 to BF.
+The Bias Value is for system biasing, try about 0x13. 
 
-2. LCDInit()
+2. LCDInit(bool Inverse, uint8_t Contrast, uint8_t Bias )
 
 gotoXY routine to position cursor,  x - range: 0 to 84 (0 to 0x53), 
 y - range: 0 to 5 ( 6 blocks one byte each 6 * 8 = 48
@@ -100,22 +118,25 @@ More efficient than clearing whole screen.
 10. LCDClearBlock(uint8_t)
 
 
-Installation
-------------------------------
-
-The library is included in the official Arduino library manger and the optimum way to install it 
-is using the library manager which can be opened by the *manage libraries* option in Arduino IDE. 
-Search "Nokia" in search bar of library manager to find it.
-
-See link below for instruction for this and for the other methods too.
-
-[Installing Additional Arduino Libraries guide](https://www.arduino.cc/en/Guide/Libraries)
-
 Pictures
 ---------------------------
 
+Output showing Blocks numbers from main test file NOKIA_TEXT_TEST.ino.
+
 ![ScreenShot pic](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA.jpg)
+
+Pinout of a Nokia 5110 LCD.
 
 ![ScreenShot pic2](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA2.jpg)
 
+Output showing Sendor data from test file called NOKIA_TEXT_DHT11.ino.
 
+![ScreenShot pic3](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA3.jpg)
+
+Output showing inverse function.
+
+![ScreenShot pic4](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA4.jpg)
+
+Output showing Aurebesh Text.
+
+![ScreenShot pic5](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA5.jpg)
