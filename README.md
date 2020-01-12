@@ -2,11 +2,20 @@ Overview
 --------------------
 * Name : NOKIA5110_TEXT
 * Title : Library for Nokia 5110 LCD (PCD8544 controller) for the Arduino eco-system
-* Description : Arduino library,  ASCII character text only (12 * 6 ) 72 characters in total, Sleep mode, minimalist. Single font. Example program(tested on UNO) uses 1874 bytes (5%) of program storage space. Maximum is 32256 bytes.
+* Description : 
+
+1. Arduino library.      
+2. Inverse, Bias and contrast control. 
+3. ASCII character text only (12 * 6 ) 72 characters in total,
+4. Two fonts. Text only. 
+5. Sleep mode.
+6. Minimalist.
+7. Example program(tested on UNO) uses 1874 bytes (5%) of program storage space. Maximum is 32256 bytes.
 Global variables use 22 bytes (1%) of dynamic memory, leaving 2026 bytes for local variables. Maximum is 2048 bytes.
 
 * Author: Gavin Lyons
-* Arduino 1.8.5
+* Arduino IDE: 1.8.5
+* Tested: UNO and NANO v3
 
 
 Installation
@@ -63,11 +72,13 @@ The ASCII library in font file: Each character is 5 pixel wide. Plus one pixel o
 Also each character is a byte of pixels in height.
 So each character is in a 7 by 8 pixel block. So you can fit (84/7) 12 characters across columns and with (48/8) 6 row blocks that gives 72 characters in total (12X06).
 
-The library can only take in character strings so if the user wants to display numbers (ints, floats)
-They must be converted first here is an example "NOKA5110_TEXT_DHT11.ino shows a way to do this with floats.
+The library can only take in characters and strings so if the user wants to display numbers (ints, floats)
+They must be converted or parsed first, there is an example file "NOKA5110_TEXT_DHT11.ino" which shows a way to do this with floats.
 
 The libray also has a Aurebesh/ASCII font file. To use this the user must change a line in cpp file.
 Comment out the marked ASCII font libray header and comment in the AUREBESH font library header.
+Another exmaple file for this in in examples.
+
 
 Functions
 ----------------------------------------
@@ -129,7 +140,7 @@ Pinout of a Nokia 5110 LCD.
 
 ![ScreenShot pic2](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA2.jpg)
 
-Output showing Sendor data from test file called NOKIA_TEXT_DHT11.ino.
+Output showing DHT11 Sensor data from test file called NOKIA_TEXT_DHT11.ino.
 
 ![ScreenShot pic3](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA3.jpg)
 

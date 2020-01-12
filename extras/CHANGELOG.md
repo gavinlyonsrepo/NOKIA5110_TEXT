@@ -8,6 +8,6 @@
 	* pull request on github
 
 * Version 1.1.0 Dec 2019
-	* Added two new exmaples
-	* Added inverse and bias control
-	* Added optional Aurebesh font
+	* Added two new examples.
+	* Added inverse and bias control.
+	* Added optional Aurebesh font.
