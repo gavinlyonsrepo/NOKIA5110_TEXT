@@ -69,7 +69,8 @@ class NOKIA5110_TEXT {
 	void LCDdisableSleep(void);
 	void LCDCharacter(char);
 	void LCDWrite(unsigned char , unsigned char);
-
+    void LCDFont(bool);
+    
   private:
 
 	uint8_t _LCD_RST;
@@ -82,6 +83,7 @@ class NOKIA5110_TEXT {
 
 	boolean	_sleep;
 	boolean	_inverse;
+	boolean	_DefaultFontOn = true;
 };
 
 

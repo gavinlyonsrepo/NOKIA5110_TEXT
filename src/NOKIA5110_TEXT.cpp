@@ -11,8 +11,11 @@
 */
 
 #include "NOKIA5110_TEXT.h"         
-#include "NOKIA5110_TEXT_FONT.h"
-// To use Aurbesh font comment in next line and comment previous line.
+
+// FONTS
+#include "NOKIA5110_TEXT_FONT_TWO.h" // Comment this line out if not using font two to save program space
+#include "NOKIA5110_TEXT_FONT.h" // Comment this line out if not using default font  to save program space
+// To use Aurbesh font remove comments for next line and comment previous line.
 //#include "NOKIA5110_TEXT_FONT_AUREBESH.h"
 
 NOKIA5110_TEXT::NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK) {
@@ -28,8 +31,8 @@ NOKIA5110_TEXT::NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, 
 	pinMode(_LCD_DC,OUTPUT);
 	pinMode(_LCD_DIN,OUTPUT);
 	pinMode(_LCD_CLK,OUTPUT);
+	
 }
-
 
 
 /*Function : LCDinit
@@ -56,6 +59,19 @@ void NOKIA5110_TEXT::LCDInit(bool Inverse = false, uint8_t Contrast = LCD_CONTRA
 	else
 		LCDWrite(LCD_COMMAND, LCD_DISPLAYCONTROL_INVERSE); //Set display control, normal mode. 0x0D for inverse
 }
+
+/* Function: LCDFont
+Passed a boolean to set between fonts , 
+default font is true, Font_two is false.
+ */
+void NOKIA5110_TEXT::LCDFont(bool UseDefaultFont)
+{
+	if (UseDefaultFont == true)
+		_DefaultFontOn = true;
+	else 
+		_DefaultFontOn = false;
+}
+
 
 /* Function: LCDClear 
 Clears the LCD by writing zeros to the entire screen
@@ -116,13 +132,27 @@ Each character is 8 bits tall and 5 bits wide. We pad one blank column of
 pixels on each side of the character for readability.
  */
 void NOKIA5110_TEXT::LCDCharacter(char character) {
-	LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding
-	for (uint8_t index = 0 ; index < 5 ; index++)
+	if (_DefaultFontOn == true)
 	{
-		LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII[character - 0x20][index])));
+		LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
+		for (uint8_t index = 0 ; index < 5 ; index++)
+		{
+			// Comment this line out if not using font default to save program space
+			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII[character - 0x20][index])));
+		}
+		//0x20 is the ASCII character for Space The font table starts with this character
+		LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding RHS
+	}else
+	{
+		LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
+		
+		for (uint8_t index = 0 ; index < 8 ; index++)
+		{
+			// Comment this line out if not using font two to save program space
+			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_TWO[character - 0x20][index])));
+		}
+		
 	}
-	//0x20 is the ASCII character for Space The font table starts with this character
-	LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding
 }
 
 /* Function: LCDString.

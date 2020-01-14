@@ -17,6 +17,7 @@ LCDdisableSleep	KEYWORD2
 LCDClearBlock	KEYWORD2
 LCDCharacter	KEYWORD2
 LCDWrite	KEYWORD2
+LCDFont	KEYWORD2
 
 # Constants
 

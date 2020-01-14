@@ -6,6 +6,7 @@ NOKIA5110_TEXT mylcd(2, 3, 4, 5, 6);
 #define inverse  false
 #define contrast 0xBE // default is 0xBF set in LCDinit, Try 0xB1(good @ 3.3V) or 0xBF if your display is too dark
 #define bias 0x13 // LCD bias mode 1:48: Try 0x13 or 0x14
+#define UseDefaultFont true
 
 //TEST setup
 #define mydelay 1000
@@ -14,6 +15,7 @@ void setup() {
   mylcd.LCDInit(inverse, contrast, bias); //init the lCD passed inverse true or false
   mylcd.LCDClear(); //clear whole screen
   mylcd.LCDsetContrast(contrast); 
+  mylcd.LCDFont(UseDefaultFont); //use Font One default, make change in NOKIA5110_TEXT.cpp as per readme to enable aurebesh.
 }
 
 void loop() {
@@ -32,7 +34,6 @@ void loop() {
   mylcd.LCDString("RIGHT AWAY"); //print to block 0 (0-5 blocks or row bytes)
   delay(mydelay);
 }
-
 
 
 

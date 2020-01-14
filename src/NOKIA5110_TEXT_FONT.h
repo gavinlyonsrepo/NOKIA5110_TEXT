@@ -2,8 +2,9 @@
 
 // Define the ASCII table as Data array
 // cols left to right 0x00 is  off 0xFF is all on
-//  each character is five bytes wide one byte height. 
-// so ! is 0 0 5F 0 0 
+// Each character is five bytes wide one byte height. 
+// so ! is 0 0 5F 0 0 , Also in code adds two blank lines on either side so in effect 0 0 0 5f 0 0 0 
+// Each character is in a 7 by 8 pixel box 
 
 #ifndef NOKIA5110_TEXT_FONT_H
 #define NOKIA5110_TEXT_FONT_H
@@ -100,11 +101,6 @@ const PROGMEM  unsigned char ASCII[][5]  = {
 ,{0x44, 0x28, 0x10, 0x28, 0x44} // 78 x
 ,{0x0c, 0x50, 0x50, 0x50, 0x3c} // 79 y
 ,{0x44, 0x64, 0x54, 0x4c, 0x44} // 7a z
-,{0x00, 0x08, 0x36, 0x41, 0x00} // 7b {
-,{0x00, 0x00, 0x7f, 0x00, 0x00} // 7c |
-,{0x00, 0x41, 0x36, 0x08, 0x00} // 7d }
-,{0x10, 0x08, 0x08, 0x10, 0x08} // 7e ~
-,{0x78, 0x46, 0x41, 0x46, 0x78} // 7f DEL
 };
 
 

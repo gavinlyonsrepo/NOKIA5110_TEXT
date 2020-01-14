@@ -1,7 +1,7 @@
 # Changelog
 
 * version 1.0.0 March 2019
-	first release
+	* first release
 
 * Version 1.0.1 May 2019
 	* Keywords.txt modified for tabs instead of spaces as per "per1234" 
@@ -11,3 +11,6 @@
 	* Added two new examples.
 	* Added inverse and bias control.
 	* Added optional Aurebesh font.
+	
+* version 1.2.0 Jan 2020
+	* Added "Font two"
