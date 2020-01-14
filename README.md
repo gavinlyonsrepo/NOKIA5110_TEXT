@@ -88,7 +88,7 @@ They must be converted or parsed first, there is an example file "NOKA5110_TEXT_
 The library also includes a "font 2", this is a wider font with same height. 
 Each character is in a 9 by 8 pixel block so you can fit 84/9 = 12 characters across columns and with
 6 row blocks that gives 54 characters in total (9X06). There is an example file for this font.
-
+In order to save program space this font does not display lowercase letters.
 
 **Font3**
 
