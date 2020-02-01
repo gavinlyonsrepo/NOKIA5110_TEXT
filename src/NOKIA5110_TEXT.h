@@ -1,24 +1,32 @@
 /*
-* Project Name: Nokia 5110
+* Project Name: NOKIA5110_TEXT
 * File: NOKIA5110_TEXT.h
 * Description: Nokia library header file
 * Author: Gavin Lyons.
-* IC: ATmega328P 
-* IDE:  Arduino 1.8.5 
-* Created March 2019
-* Description: See URL for full details.
 * URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
 */
-
-
 #ifndef NOKIA5110_TEXT_H
 #define NOKIA5110_TEXT_H
-
 
 #if (ARDUINO >=100)
   #include "Arduino.h"
 #else
   #include "WProgram.h"
+#endif
+
+// Comment in the fonts you want 1 is default. 
+#define NOKIA5110_FONT_1
+//#define NOKIA5110_FONT_2
+//#define NOKIA5110_FONT_3
+
+#ifdef NOKIA5110_FONT_1
+	#include "NOKIA5110_TEXT_FONT.h"
+#endif
+#ifdef NOKIA5110_FONT_2
+	#include "NOKIA5110_TEXT_FONT_TWO.h"
+#endif
+#ifdef NOKIA5110_FONT_3
+#	include "NOKIA5110_TEXT_FONT_AUREBESH.h"
 #endif
 
 //LCD Commands PCD8544_
@@ -30,7 +38,7 @@
 #define LCD_DISPLAYCONTROL 0x0C //Set display control, normal mode. 0x0D for inverse
 #define LCD_DISPLAYCONTROL_INVERSE 0x0D //Set display control, inverse mode. 0x0D for inverse
 #define LCD_POWERDOWN    0x24 //LCD power off
-
+#define LCD_FONTNUMBER  0x01 // default Font number 1 to 3, default 1
 
 //The DC pin tells the LCD if sending a command or data
 #define LCD_COMMAND 0
@@ -69,7 +77,7 @@ class NOKIA5110_TEXT {
 	void LCDdisableSleep(void);
 	void LCDCharacter(char);
 	void LCDWrite(unsigned char , unsigned char);
-    void LCDFont(bool);
+    void LCDFont(uint8_t);
     
   private:
 
@@ -83,7 +91,7 @@ class NOKIA5110_TEXT {
 
 	boolean	_sleep;
 	boolean	_inverse;
-	boolean	_DefaultFontOn = true;
+	uint8_t	_FontNumber = LCD_FONTNUMBER;
 };
 
 

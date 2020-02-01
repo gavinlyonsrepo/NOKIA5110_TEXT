@@ -14,3 +14,8 @@
 	
 * version 1.2.0 Jan 2020
 	* Added "Font two"
+
+* Version 1.2.1 Feb 2020
+	* Minor update , Use define statements to let User pick required fonts
+	for their use case 
+	* Method LCDFont() input parameter is changed from bool to int to enable font selection

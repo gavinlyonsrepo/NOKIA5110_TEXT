@@ -1,3 +1,13 @@
+// Test file for NOKIA5110_TEXT lib showing use of font number 3
+// URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT 
+//
+// NOTE:  ********************************************** NOTE:
+// For this non-default font to work, One line in the library header file
+// called "NOKIA5110_TEXT.h"  Must be modified ,
+// the Define statement at start of file for Font3 must be commented IN.
+// #define NOKIA5110_FONT_3
+// NOTE:  ********************************************** NOTE:
+
 #include <NOKIA5110_TEXT.h>
 
 //LCD Nokia 5110 pinout left to right
@@ -6,7 +16,7 @@ NOKIA5110_TEXT mylcd(2, 3, 4, 5, 6);
 #define inverse  false
 #define contrast 0xBE // default is 0xBF set in LCDinit, Try 0xB1(good @ 3.3V) or 0xBF if your display is too dark
 #define bias 0x13 // LCD bias mode 1:48: Try 0x13 or 0x14
-#define UseDefaultFont true
+#define FontNumber 3
 
 //TEST setup
 #define mydelay 1000
@@ -15,7 +25,7 @@ void setup() {
   mylcd.LCDInit(inverse, contrast, bias); //init the lCD passed inverse true or false
   mylcd.LCDClear(); //clear whole screen
   mylcd.LCDsetContrast(contrast); 
-  mylcd.LCDFont(UseDefaultFont); //use Font One default, make change in NOKIA5110_TEXT.cpp as per readme to enable aurebesh.
+  mylcd.LCDFont(FontNumber); //use Font three default.
 }
 
 void loop() {

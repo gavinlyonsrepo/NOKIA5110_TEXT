@@ -10,7 +10,7 @@ NOKIA5110_TEXT mylcd(2, 3, 4, 5, 6);
 #define inverse  false
 #define contrast 0xBE // default is 0xBF set in LCDinit, Try 0xB1(good @ 3.3V) or 0xBF if your display is too dark
 #define bias 0x13 // LCD bias mode 1:48: Try 0x13 or 0x14
-#define UseDefaultFont  true
+#define FontNumber 1
 
 //dht
 #define dht_dpin A0 //no ; here. Set equal to channel sensor is on
@@ -21,7 +21,7 @@ void setup() {
   //setup lcd
   mylcd.LCDInit(inverse, contrast, bias); //init the lCD passed inverse true or false
   mylcd.LCDClear(); //clear whole screen
-  mylcd.LCDFont(UseDefaultFont); //use Font One default
+  mylcd.LCDFont(FontNumber); //use Font One default
 }
 
 void loop() {

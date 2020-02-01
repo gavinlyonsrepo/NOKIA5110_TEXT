@@ -9,10 +9,11 @@ Overview
 3. ASCII character text.
 4. Font 1 (12 * 6 ) 72 characters in total.
 5. Font 2 (9 * 6  ) 54  characters in total.
-6. Three fonts. Text only. 
-7. Sleep mode.
-8. Light weight, low memory footprint. 
-9. Basic Example program font one only (tested on UNO) uses 1874 bytes (5%) of program storage space. Maximum is 32256 bytes.
+6. Font 3 (12 * 6 ) 72 characters in total.
+7. Three fonts. Text only. 
+8. Sleep mode.
+9. Light weight, low memory footprint. 
+10. Basic Example program font one only (tested on UNO) uses 1874 bytes (5%) of program storage space. Maximum is 32256 bytes.
 Global variables use 22 bytes (1%) of dynamic memory, leaving 2026 bytes for local variables. Maximum is 2048 bytes.
 
 * Author: Gavin Lyons
@@ -34,8 +35,8 @@ See link below for instruction for this and for the other methods too.
 
 Features
 -------------------------
-The Nokia 5110 is a basic  LCD screen for lots of applications. 
-It was originally intended to be used as a cell phone screen. 
+The Nokia 5110 is a basic LCD screen for lots of applications. 
+It was originally intended to be used as a mobile phone screen. 
 It uses the PCD8544 controller, which is the same used in the Nokia 3310 LCD. 
 The PCD8544 is a low power CMOS LCD controller/driver, designed to drive a graphic display of 48 rows and 84 columns.
 All necessary functions for the display are provided in a single chip, including on-chip generation of LCD supply and bias voltages,
@@ -57,8 +58,11 @@ The library uses bit-banging rather than importing SPI libraries.
 Example program default font only (tested on UNO) uses 1874 bytes (5%) of program storage space. Maximum is 32256 bytes.
 Global variables use 22 bytes (1%) of dynamic memory, leaving 2026 bytes for local variables. Maximum is 2048 bytes.
 This compares to Adafruit text based library example of 20% and 38% for program storage and global variables respectively. 
-There are two english fonts its possible to reduce memory footprint by commenting out header file
-for one you do not want and one other marked respective line in LCDCharacter function.
+
+There are 3 fonts you include the ones you want by means of "define" statements at top of library header file.
+You change the current font using the "LCDFont" function. 
+Only include what font you want in order to keep program size as small as possible.
+The default font is "font number 1" and included by default.
 
 The library has main 5 files (NOKIA5110_TEXT.cpp  NOKIA5110_TEXT.h and 3 font header files).
 
@@ -81,21 +85,22 @@ So each character is in a 7 by 8 pixel block. So you can fit (84/7) 12 character
 6 row blocks that gives 72 characters in total (12X06).
 
 The library can only take in characters and strings so if the user wants to display numbers (ints, floats)
-They must be converted or parsed first, there is an example file "NOKA5110_TEXT_DHT11.ino" which shows a way to do this with floats.
+They must be converted or parsed first, there is an example file "NOKA5110_TEXT_DHT11.ino" 
+which shows one way to do this with floats.
 
 **Font2** 
-
-The library also includes a "font 2", this is a wider font with same height. 
+The library also includes a "font 2", this is a thicker/wider font with same height. 
 Each character is in a 9 by 8 pixel block so you can fit 84/9 = 12 characters across columns and with
 6 row blocks that gives 54 characters in total (9X06). There is an example file for this font.
-In order to save program space this font does not display lowercase letters.
+In order to save program space this font is uppercase letters only.
+To Include this font by commenting in #define NOKIA5110_FONT_2 at top of library header file
+and to use it pass 2 to "LCDFont" function.
 
 **Font3**
-
-The library also has a optional font 3 Aurebesh/ASCII font file. To use this the user must change a line in cpp file.
-Comment out the marked ASCII font library header and comment in the AUREBESH font library header.
-An example file for this in in examples.
-
+The library also has a optional font 3 Aurebesh<->ASCII font file. 
+An example file for this is in examples. This font is same size as font 1.
+To Include this font by commenting in #define NOKIA5110_FONT_3 at top of library header file
+and to use it pass 3 to "LCDFont" function.
 
 Functions
 ----------------------------------------
@@ -146,10 +151,11 @@ Set LCD VOP Contrast, range = ((0x00-0x7F) |0x80) , 0xB5 = (0x35|0x80) try B1 - 
 Function Clears a block(block of rows, one byte) passed block number 0-5 
 More efficient than clearing whole screen
 
-11. LCDFont(bool)
+11. LCDFont(uint8_t)
 
-Sets the font to default (font one) is passed true , if passed false sets it to 
-Font two.
+Set the font, 3 choices 1 = font 1 , 2 = font 2,  3 = font 3. 
+default is 1. Fonts can be changed on the fly but non-default fonts must be included
+by commenting in the relevant Define statement at top of library header .h file.
  
 12. LCDCharacter(char character)
 
@@ -166,18 +172,14 @@ Pinout of a Nokia 5110 LCD.
 
 ![ScreenShot pic2](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA2.jpg)
 
-Output showing DHT11 Sensor data from test file called NOKIA_TEXT_DHT11.ino.
-
-![ScreenShot pic3](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA3.jpg)
-
 Output showing inverse function.
 
 ![ScreenShot pic4](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA4.jpg)
 
-Output showing Font two. NOKIA5110_TEXT_FONT2.
+Output showing Font two. NOKIA5110_TEXT_FONT2.h.
 
 ![ScreenShot pic4](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA6.jpg)
 
-Output showing Aurebesh Text.
+Output showing  Font 3 NOKIA5110_TEXT_FONT_AUREBESH.h .
 
 ![ScreenShot pic5](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA5.jpg)

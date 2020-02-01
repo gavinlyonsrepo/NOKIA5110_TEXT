@@ -10,13 +10,7 @@
 * URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
 */
 
-#include "NOKIA5110_TEXT.h"         
-
-// FONTS
-#include "NOKIA5110_TEXT_FONT_TWO.h" // Comment this line out if not using font two to save program space
-#include "NOKIA5110_TEXT_FONT.h" // Comment this line out if not using default font  to save program space
-// To use Aurbesh font remove comments for next line and comment previous line.
-//#include "NOKIA5110_TEXT_FONT_AUREBESH.h"
+#include "NOKIA5110_TEXT.h"
 
 NOKIA5110_TEXT::NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK) {
 	
@@ -64,12 +58,9 @@ void NOKIA5110_TEXT::LCDInit(bool Inverse = false, uint8_t Contrast = LCD_CONTRA
 Passed a boolean to set between fonts , 
 default font is true, Font_two is false.
  */
-void NOKIA5110_TEXT::LCDFont(bool UseDefaultFont)
+void NOKIA5110_TEXT::LCDFont(uint8_t  FontNumber)
 {
-	if (UseDefaultFont == true)
-		_DefaultFontOn = true;
-	else 
-		_DefaultFontOn = false;
+		_FontNumber = FontNumber;
 }
 
 
@@ -132,26 +123,41 @@ Each character is 8 bits tall and 5 bits wide. We pad one blank column of
 pixels on each side of the character for readability.
  */
 void NOKIA5110_TEXT::LCDCharacter(char character) {
-	if (_DefaultFontOn == true)
+
+	switch(_FontNumber)
 	{
-		LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
-		for (uint8_t index = 0 ; index < 5 ; index++)
-		{
-			// Comment this line out if not using font default to save program space
-			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII[character - 0x20][index])));
-		}
-		//0x20 is the ASCII character for Space The font table starts with this character
-		LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding RHS
-	}else
-	{
-		LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
-		
-		for (uint8_t index = 0 ; index < 8 ; index++)
-		{
-			// Comment this line out if not using font two to save program space
-			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_TWO[character - 0x20][index])));
-		}
-		
+		  case 1:
+			#ifdef NOKIA5110_FONT_1
+				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
+				for (uint8_t index = 0 ; index < 5 ; index++)
+				{
+					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII[character - 0x20][index])));
+				}
+				//0x20 is the ASCII character for Space The font table starts with this character
+				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding RHS
+			#endif
+		 break;
+	  case 2:
+			#ifdef NOKIA5110_FONT_2
+				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
+				for (uint8_t index = 0 ; index < 8 ; index++)
+				{
+					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_TWO[character - 0x20][index])));
+				}
+			#endif
+		 break;
+	  case 3:
+			#ifdef NOKIA5110_FONT_3
+		 // FONT_3 code here
+				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
+				for (uint8_t index = 0 ; index < 5 ; index++)
+				{
+					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_THREE[character - 0x20][index])));
+				}
+				//0x20 is the ASCII character for Space The font table starts with this character
+				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding RHS
+			#endif
+		 break;
 	}
 }
 
