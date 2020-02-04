@@ -1,3 +1,12 @@
+Table of contents
+---------------------------
+
+  * [Overview](#overview)
+  * [Installation](#installation)
+  * [Features](#features)
+  * [Fonts](#fonts)
+  * [Functions](#functions)
+
 Overview
 --------------------
 * Name : NOKIA5110_TEXT
@@ -7,18 +16,18 @@ Overview
 1. Arduino library.      
 2. Inverse, Bias and contrast control. 
 3. ASCII character text.
-4. Font 1 (12 * 6 ) 72 characters in total.
-5. Font 2 (9 * 6  ) 54  characters in total.
-6. Font 3 (12 * 6 ) 72 characters in total.
+4. Font 1 (12 * 6 ) 72 characters on screen in total.
+5. Font 2 (9 * 6  ) 54  characters on screen in total.
+6. Font 3 (12 * 6 ) 72 characters on screen in total.
 7. Three fonts. Text only. 
 8. Sleep mode.
-9. Light weight, low memory footprint. 
+9. Designed to be light weight, low memory footprint. 
 10. Basic Example program font one only (tested on UNO) uses 1874 bytes (5%) of program storage space. Maximum is 32256 bytes.
 Global variables use 22 bytes (1%) of dynamic memory, leaving 2026 bytes for local variables. Maximum is 2048 bytes.
 
 * Author: Gavin Lyons
 * Arduino IDE: 1.8.5
-* Tested: UNO and NANO v3
+* Tested: UNO and NANO v3.
 
 
 Installation
@@ -59,11 +68,6 @@ Example program default font only (tested on UNO) uses 1874 bytes (5%) of progra
 Global variables use 22 bytes (1%) of dynamic memory, leaving 2026 bytes for local variables. Maximum is 2048 bytes.
 This compares to Adafruit text based library example of 20% and 38% for program storage and global variables respectively. 
 
-There are 3 fonts you include the ones you want by means of "define" statements at top of library header file.
-You change the current font using the "LCDFont" function. 
-Only include what font you want in order to keep program size as small as possible.
-The default font is "font number 1" and included by default.
-
 The library has main 5 files (NOKIA5110_TEXT.cpp  NOKIA5110_TEXT.h and 3 font header files).
 
 The screen is 84 X 48 pixels. The X-Axis has 84 columns.
@@ -79,19 +83,28 @@ Each block containing one byte of pixels. 6 * 8 = 48.
 | Block 4 | 32-39 |
 | Block 5 | 40-47 |
 
-The ASCII library in a font header file: Each character is 5 pixel wide. Plus one pixel of empty space on each side.
-Also each character is a byte of pixels in height.
-So each character is in a 7 by 8 pixel block. So you can fit (84/7) 12 characters across columns and with (48/8).
-6 row blocks that gives 72 characters in total (12X06).
 
-The library can only take in characters and strings so if the user wants to display numbers (ints, floats)
-They must be converted or parsed first, there is an example file "NOKA5110_TEXT_DHT11.ino" 
-which shows one way to do this with floats.
+Fonts 
+---------------------------
+
+There are 3 fonts you include the ones you want by means of "define" statements at top of library header file.
+You change the current font using the "LCDFont" function. 
+Only include what font you want in order to keep program size as small as possible.
+By default only Font1 is included.
+
+**Font1**
+Font 1 is the default font,  it is activated by default using the 
+"define" NOKIA5110_FONT_1 at top of library header file.
+The ASCII library in a font header file: Each character is 5 pixel wide. 
+Plus one pixel of empty space on each side.
+Also each character is a byte of pixels in height.
+So each character is in a 7 by 8 pixel block. So you can fit (84/7) 12 characters across columns and with (48/8),
+6 row blocks that gives 72 characters in total (12X06).
 
 **Font2** 
 The library also includes a "font 2", this is a thicker/wider font with same height. 
-Each character is in a 9 by 8 pixel block so you can fit 84/9 = 12 characters across columns and with
-6 row blocks that gives 54 characters in total (9X06). There is an example file for this font.
+Each character is in a 9 by 8 pixel block so you can fit 84/9 = 9.3 characters across columns and with
+6 row blocks that gives 54 (9X06). characters in total  There is an example file for this font.
 In order to save program space this font is uppercase letters only.
 To Include this font by commenting in #define NOKIA5110_FONT_2 at top of library header file
 and to use it pass 2 to "LCDFont" function.
@@ -101,11 +114,12 @@ The library also has a optional font 3 Aurebesh<->ASCII font file.
 An example file for this is in examples. This font is same size as font 1.
 To Include this font by commenting in #define NOKIA5110_FONT_3 at top of library header file
 and to use it pass 3 to "LCDFont" function.
+Note: There is a typo in minor update version 1.2.1, in the font file the font is called "ASCII" is should be 
+called ASCII_THREE, will fix at next update. 
 
 Functions
 ----------------------------------------
  
-
 1. NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK)
 
 Construct of the class object from left to right pin 1-5(LCD)
@@ -137,6 +151,9 @@ the data byte The first byte is one(data) or zero(cmd) , second byte data
 6. LCDString(const char * characters);
 
 Given a string of characters, one by one is passed to the LCD
+The library can only take in characters and strings so if the user wants to display numbers (ints, floats)
+They must be converted or parsed first, there is an example file "NOKA5110_TEXT_DHT11.ino" 
+which shows one way to do this with floats.
 
 7. LCDsetContrast(uint8_t )
 
