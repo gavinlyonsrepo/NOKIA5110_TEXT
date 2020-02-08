@@ -7,7 +7,7 @@ Table of contents
   * [Hardware](#hardware)
   * [Fonts](#fonts)
   * [Functions](#functions)
-  * [Memory usage](#memory usage)
+  * [Memory](#memory)
   
 Overview
 --------------------
@@ -210,17 +210,16 @@ Prints a character to screen.
 Passed Col and row position of a pixel , can be used to set a individual pixel
 Can be used to create simple graphics like lines, boxes.
 
-Memory Usage 
+Memory
 ---------------------------
 
 Memory usage of a basic print "HELLO" program.
 
 Font 1 default.
 Sketch uses 1872 bytes (6%) of program storage space. 
-Global variables use 24 bytes (1%) of dynamic memory, leaving 2024 bytes for local variables. 
-
+Global variables use 24 bytes (1%) of dynamic memory.
 Font 6 tiny. 
 Sketch uses 1688 bytes (5%) of program storage space. 
-Global variables use 24 bytes (1%) of dynamic memory, leaving 2024 bytes for local variables. 
+Global variables use 24 bytes (1%) of dynamic memory. 
 
 This compares to Adafruit text based library example of 20% and 38% for program storage and global variables respectively. 
