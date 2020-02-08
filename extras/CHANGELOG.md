@@ -19,3 +19,9 @@
 	* Minor update , Use define statements to let User pick required fonts
 	for their use case 
 	* Method LCDFont() input parameter is changed from bool to int to enable font selection
+
+* Version 1.3.0 2020
+	* Added 3 new fonts( Wide, Tiny and Segment) 
+	* created A set pixel method for basic graphics
+	* removed pinmode statements from constructor
+	

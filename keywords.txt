@@ -18,6 +18,7 @@ LCDClearBlock	KEYWORD2
 LCDCharacter	KEYWORD2
 LCDWrite	KEYWORD2
 LCDFont	KEYWORD2
+LCDSetPixel	KEYWORD2
 
 # Constants
 

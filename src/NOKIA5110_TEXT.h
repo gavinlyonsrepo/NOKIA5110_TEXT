@@ -14,10 +14,15 @@
   #include "WProgram.h"
 #endif
 
-// Comment in the fonts you want 1 is default. 
+// **** FONT DEFINE SECTION ******  
+// Comment in the fonts you want, X_1 is default. 
 #define NOKIA5110_FONT_1
 //#define NOKIA5110_FONT_2
 //#define NOKIA5110_FONT_3
+//#define NOKIA5110_FONT_4
+//#define NOKIA5110_FONT_5
+//#define NOKIA5110_FONT_6
+// **** END OF FONT DEFINE SECTION ******  
 
 #ifdef NOKIA5110_FONT_1
 	#include "NOKIA5110_TEXT_FONT.h"
@@ -26,7 +31,16 @@
 	#include "NOKIA5110_TEXT_FONT_TWO.h"
 #endif
 #ifdef NOKIA5110_FONT_3
-#	include "NOKIA5110_TEXT_FONT_AUREBESH.h"
+	#include "NOKIA5110_TEXT_FONT_THREE.h"
+#endif
+#ifdef NOKIA5110_FONT_4
+	#include "NOKIA5110_TEXT_FONT_FOUR.h"
+#endif
+#ifdef NOKIA5110_FONT_5
+	#include "NOKIA5110_TEXT_FONT_FIVE.h"
+#endif
+#ifdef NOKIA5110_FONT_6
+	#include "NOKIA5110_TEXT_FONT_SIX.h"
 #endif
 
 //LCD Commands PCD8544_
@@ -38,7 +52,10 @@
 #define LCD_DISPLAYCONTROL 0x0C //Set display control, normal mode. 0x0D for inverse
 #define LCD_DISPLAYCONTROL_INVERSE 0x0D //Set display control, inverse mode. 0x0D for inverse
 #define LCD_POWERDOWN    0x24 //LCD power off
-#define LCD_FONTNUMBER  0x01 // default Font number 1 to 3, default 1
+
+// Misc LCD Data 
+#define LCD_FONTNUMBER  0x01 // default Font number 1,  1 to 6 fonts
+#define LCD_ASCII_OFFSET 0x20 //0x20, ASCII character for Space, The font table starts with this character
 
 //The DC pin tells the LCD if sending a command or data
 #define LCD_COMMAND 0
@@ -78,7 +95,8 @@ class NOKIA5110_TEXT {
 	void LCDCharacter(char);
 	void LCDWrite(unsigned char , unsigned char);
     void LCDFont(uint8_t);
-    
+    void LCDSetPixel(uint8_t, uint8_t);
+
   private:
 
 	uint8_t _LCD_RST;
@@ -87,11 +105,11 @@ class NOKIA5110_TEXT {
 	uint8_t _LCD_DIN;
 	uint8_t  _LCD_CLK;
 
-	uint8_t  _contrast = LCD_CONTRAST ; //Set LCD VOP Contrast, range = ((0x00-0x7F) |0x80)
-
+	uint8_t  _contrast = LCD_CONTRAST ; 
+	uint8_t	_FontNumber = LCD_FONTNUMBER;
 	boolean	_sleep;
 	boolean	_inverse;
-	uint8_t	_FontNumber = LCD_FONTNUMBER;
+
 };
 
 

@@ -19,21 +19,19 @@ NOKIA5110_TEXT::NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, 
 	_LCD_DC  = LCD_DC;
 	_LCD_DIN  = LCD_DIN;
 	_LCD_CLK  = LCD_CLK;
-  
-	pinMode(_LCD_RST,OUTPUT);
-	pinMode(_LCD_CE,OUTPUT);
-	pinMode(_LCD_DC,OUTPUT);
-	pinMode(_LCD_DIN,OUTPUT);
-	pinMode(_LCD_CLK,OUTPUT);
 	
 }
-
 
 /*Function : LCDinit
 This sends the  commands to the PCD8544 to  init LCD
 */
 void NOKIA5110_TEXT::LCDInit(bool Inverse = false, uint8_t Contrast = LCD_CONTRAST,uint8_t Bias = LCD_BIAS) {
-	//
+	
+	pinMode(_LCD_RST,OUTPUT);
+	pinMode(_LCD_CE,OUTPUT);
+	pinMode(_LCD_DC,OUTPUT);
+	pinMode(_LCD_DIN,OUTPUT);
+	pinMode(_LCD_CLK,OUTPUT);
 	_inverse = Inverse;
 	_contrast = Contrast;
 	//Configure control pins
@@ -55,12 +53,12 @@ void NOKIA5110_TEXT::LCDInit(bool Inverse = false, uint8_t Contrast = LCD_CONTRA
 }
 
 /* Function: LCDFont
-Passed a boolean to set between fonts , 
-default font is true, Font_two is false.
+Passed a int to set between fonts , 1-6
+default font is 1, Font_two is 2. Font_three is 3 etc
  */
 void NOKIA5110_TEXT::LCDFont(uint8_t  FontNumber)
 {
-		_FontNumber = FontNumber;
+	_FontNumber = FontNumber;
 }
 
 
@@ -68,8 +66,10 @@ void NOKIA5110_TEXT::LCDFont(uint8_t  FontNumber)
 Clears the LCD by writing zeros to the entire screen
  */
 void NOKIA5110_TEXT::LCDClear(void) {
-	for (int index = 0 ; index < (LCD_X * LCD_Y / 8) ; index++)
-	LCDWrite(LCD_DATA, 0x00);
+	for (uint16_t index = 0 ; index < (LCD_X * LCD_Y / 8) ; index++)
+	{
+		LCDWrite(LCD_DATA, 0x00);
+	}
 	LCDgotoXY(0, 0); //After we clear the display, return to the home position
 	}
 
@@ -79,8 +79,10 @@ by writing zeros to the line. Send the row block number 0-5
  */
 void NOKIA5110_TEXT::LCDClearBlock(uint8_t RowBlockNum) {
 	LCDgotoXY(0, RowBlockNum);
-	for (int index = 0 ; index < (LCD_X) ; index++)
-	LCDWrite(LCD_DATA, 0x00);
+	for (uint8_t index = 0 ; index < (LCD_X) ; index++)
+		{
+			LCDWrite(LCD_DATA, 0x00);
+		}
 	}
 
 /* Function: gotoXY gotoXY routine to position cursor 
@@ -122,43 +124,56 @@ And writes it to the screen
 Each character is 8 bits tall and 5 bits wide. We pad one blank column of
 pixels on each side of the character for readability.
  */
-void NOKIA5110_TEXT::LCDCharacter(char character) {
-
+void NOKIA5110_TEXT::LCDCharacter(char character) 
+{
+	uint8_t column = 0;
+	LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding , LHS
 	switch(_FontNumber)
 	{
-		  case 1:
+		case 1:
 			#ifdef NOKIA5110_FONT_1
-				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
-				for (uint8_t index = 0 ; index < 5 ; index++)
-				{
-					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII[character - 0x20][index])));
+				for (column = 0 ; column < 5 ; column++){
+					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII[character - LCD_ASCII_OFFSET][column])));
 				}
-				//0x20 is the ASCII character for Space The font table starts with this character
-				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding RHS
 			#endif
-		 break;
-	  case 2:
+		break;
+		case 2:
 			#ifdef NOKIA5110_FONT_2
-				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
-				for (uint8_t index = 0 ; index < 8 ; index++)
-				{
-					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_TWO[character - 0x20][index])));
+				for (column = 0 ; column < 7 ; column++) {
+					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_TWO[character - LCD_ASCII_OFFSET][column])));
 				}
 			#endif
-		 break;
-	  case 3:
+		break;
+		case 3:
 			#ifdef NOKIA5110_FONT_3
-		 // FONT_3 code here
-				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding LHS
-				for (uint8_t index = 0 ; index < 5 ; index++)
-				{
-					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_THREE[character - 0x20][index])));
+				for (column = 0 ; column < 5 ; column++) {
+					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_THREE[character - LCD_ASCII_OFFSET][column])));
 				}
-				//0x20 is the ASCII character for Space The font table starts with this character
-				LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding RHS
 			#endif
-		 break;
+		break;
+		case 4:
+			#ifdef NOKIA5110_FONT_4
+				for (column = 0 ; column < 4 ; column++) {
+					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_FOUR[character - LCD_ASCII_OFFSET][column])));
+				}
+			#endif
+		break;
+		case 5:
+			#ifdef NOKIA5110_FONT_5
+				for (column = 0 ; column < 8 ; column++){
+					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_FIVE[character - LCD_ASCII_OFFSET][column])));
+				}
+			#endif
+		break;
+		case 6:
+			#ifdef NOKIA5110_FONT_6
+				for (column = 0 ; column < 3 ; column++){
+					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_SIX[character - LCD_ASCII_OFFSET][column])));
+				}
+			#endif
+		break;
 	}
+	LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding RHS
 }
 
 /* Function: LCDString.
@@ -169,6 +184,17 @@ void NOKIA5110_TEXT::LCDString(const char  *characters) {
 	LCDCharacter(*characters++);
 }
 
+/* Function: LCDSetPixel
+ Function to set one pixel on
+ Passed two byte X and Y , Column and row position to set the the bit
+ X = 0-83 , Y = 0-47.
+ */
+void NOKIA5110_TEXT::LCDSetPixel(uint8_t col = 0,  uint8_t row = 0) 
+{
+		uint8_t rowblock = row/8; //0 -5
+		LCDgotoXY(col, rowblock);
+		LCDWrite(LCD_DATA, 1 << (row-(rowblock*8)));
+}
 
 /* Function: LCDSetContrast
  Function to set contrast passed a byte 
@@ -186,8 +212,10 @@ void NOKIA5110_TEXT::LCDsetContrast(uint8_t contrast)
 void NOKIA5110_TEXT::LCDenableSleep()
 {
 	_sleep = true;
-	 for (int index = 0 ; index < (LCD_X * LCD_Y / 8) ; index++)
-	LCDWrite(LCD_DATA, 0x00);
+	for (uint16_t index = 0 ; index < (LCD_X * LCD_Y / 8) ; index++)
+	{
+		LCDWrite(LCD_DATA, 0x00);
+	}
 	LCDgotoXY(0, 0);
 	LCDWrite(LCD_COMMAND, LCD_POWERDOWN);
 }
