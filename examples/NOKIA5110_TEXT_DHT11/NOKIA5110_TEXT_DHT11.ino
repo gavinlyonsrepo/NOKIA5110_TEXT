@@ -5,7 +5,7 @@
 #include <NOKIA5110_TEXT.h>
 
 //LCD Nokia 5110 pinout left to right
-// RST 1/ CD 2/ DC 3/ DIN 4/ CLK 5
+// RST 2/ CD 3/ DC 4/ DIN 5/ CLK 6
 NOKIA5110_TEXT mylcd(2, 3, 4, 5, 6);
 #define inverse  false
 #define contrast 0xBE // default is 0xBF set in LCDinit, Try 0xB1(good @ 3.3V) or 0xBF if your display is too dark

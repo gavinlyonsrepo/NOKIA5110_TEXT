@@ -1,7 +1,10 @@
+![ pcb ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA.jpg)
+
 Table of contents
 ---------------------------
 
   * [Overview](#overview)
+  * [Output](#output)
   * [Installation](#installation)
   * [Features](#features)
   * [Hardware](#hardware)
@@ -26,6 +29,24 @@ Overview
 * Arduino IDE: 1.8.5
 * Tested: UNO and NANO v3.
 
+Output
+---------------------------------
+
+Output Screenshots, From left to right top to bottom.
+
+1. Custom characters 
+2. Font 7 "Large"
+3. Half bitmap + Font 7 "large"
+4. Full Bitmap 
+5. Output showing first 6 (8 by X) fonts, #1-6, one font in each row block:
+6. Font 8 "Huge" 
+
+![ font pic 1 ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA_FONT1.jpg)
+
+![ font pic 2 ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA_FONT2.jpg)
+
+![ font pic 3 ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA_FONT_ALL.jpg)
+
 
 Installation
 ------------------------------
@@ -49,8 +70,8 @@ All necessary functions for the display are provided in a single chip, including
 resulting in a minimum of external components and low power consumption. 
 The PCD8544 interfaces to microcontrollers through a serial bus interface(SPI).
 The library uses bit-banging rather than importing SPI libraries.
-The library has 8 src files (NOKIA5110_TEXT.cpp  NOKIA5110_TEXT.h and 6 font header files).
-The library has 4 examples files.
+The library has 10 src files (NOKIA5110_TEXT.cpp  NOKIA5110_TEXT.h and 8 font header files).
+The library has 5 examples files.
 
 The screen is 84 X 48 pixels. The X-Axis has 84 columns.
 The Y_Axis(rows) the 48 pixels are divided into 6 row blocks. 
@@ -83,68 +104,60 @@ Pinout of a Nokia 5110 LCD.
 
 ![ pinout ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA_PINOUT.jpg)
 
-Example in a project of wiring [ setup ](https://github.com/gavinlyonsrepo/Arduino_Clock_1) with Arduino NANO.
-
+The LCD Vcc runs at 3.3V so you'll need to use level shifting/dropping  to use with safely with  5V microcontroller.
 
 Fonts 
 ---------------------------
 
-There are 6 fonts.
+There are 8 fonts.
 By default only Font 1 is commented in and ready to go.
-So to use a non-default Font (2-6), two steps.
+So to use a non-default Font (2-8), two steps.
 
 1. Comment in the respective define at top of library header file NOKIA5110_TEXT.h in the FONT DEFINE SECTION.
 2. Call LCDFont function and pass it number of respective font.
 
 Only include what fonts you want in order to keep program size as small as possible.
-Each font is a header file, NOKIA5110_FONT_X.h where X is number of Font(1-6)
+Each font is a header file, NOKIA5110_FONT_X.h where X is number of Font(1-8)
 
 **Font table**
 
-| Font num | Font name | Pixel size | total characters | 
+| Font num | Font name | Pixel size | total characters |
 | ------ | ------ | ------ | ------ |
-| 1 | default | 5x8 | 12*6 = 72 |
-| 2 | thick   | 7x8 | 9*6 = 54 |
-| 3 | Aurebesh | 5x8 | 12*6 = 72 |
-| 4 | Seven segment | 4x8 | 14*6 = 84 |
-| 5 | Wide | 8x8 | 8*6 = 48 |
-| 6 | tiny | 3x8 | 16*6 = 96  |
+| 1 | Default | 5x8 | (84/5+2) * (48/8) = 72 |
+| 2 | Thick   | 7x8 | (84/7+2) * (48/8)  = 54 |
+| 3 | Aurebesh | 5x8 | (84/5+2) * (48/8)  = 72 |
+| 4 | Seven segment | 4x8 | (84/4+2) * (48/8) = 84 |
+| 5 | Wide | 8x8 | (84/8+2) * (48/8) = 48 |
+| 6 | Tiny | 3x8 | (84/3+2) * (48/8) = 96  |
+| 7 | Large | 12x16 | (84/12) * (48/16) = 21 |
+| 8 | Huge | 16x24 | (84/16) * (48/24) = 10  |
 
-| Font num | Font file  | Font define  | uppercase letters only |
+| Font num | Font file  | Font define  | Note |
 | ------ | ------ | ------ | ------ | 
 | 1 | NOKIA5110_FONT.h | NOKIA5110_FONT_1 | --- |
-| 2 | NOKIA5110_FONT_TWO.h | NOKIA5110_FONT_2 | yes |
+| 2 | NOKIA5110_FONT_TWO.h | NOKIA5110_FONT_2 | no lowercase letters |
 | 3 | NOKIA5110_FONT_THREE.h | NOKIA5110_FONT_3 | --- | 
 | 4 | NOKIA5110_FONT_FOUR.h | NOKIA5110_FONT_4 | --- |
-| 5 | NOKIA5110_FONT_FIVE.h | NOKIA5110_FONT_5 | yes |
+| 5 | NOKIA5110_FONT_FIVE.h | NOKIA5110_FONT_5 |  no lowercase letters |
 | 6 | NOKIA5110_FONT_SIX.h | NOKIA5110_FONT_6 | --- |
+| 7 | NOKIA5110_FONT_FIVE.h | NOKIA5110_FONT_7 | no lowercase letters |
+| 8 | NOKIA5110_FONT_SIX.h | NOKIA5110_FONT_8 | Numbers + : . only |
 
 Note:
-Each character is a byte of pixels in height(Y). One pixel of empty space on each side 
+For fonts 1-6 Each character is a byte of pixels in height(Y). One pixel of empty space on each side 
 is added by code. So a 5x8 (XxY) pixel character is in reality 7x8. 
 Each of the six rowblock is one byte height. So to get total number of characters,
-divide screen width ( 84 ) by number of characters across and multiple by number of rowblocks ( 6 ).
+divide screen width ( 84 ) by number of characters across and multiple by number of rowblocks,
+ ( 6, 3 or 2 ) 6 in this case.
 For example with "default" is a 5x8 pixel font with the two blank spaces its 7x8 for each character, 
 So (84/7) = 12 characters across columns. 
 There are (48/8) = 6 row blocks that gives (12 x 06) = 72 characters in total.
-
-**Font 1 default**
-
-![ default  font ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA_FONT1.jpg)
-
-**Font2 thick** 
-
-![ font 2 ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA_FONT2.jpg)
-
-**All Fonts**
- 
-Output showing all 6 fonts, 1-6, one font in each row block:
-
-![all font](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA_FONT_ALL.jpg)
-
+Total characters = (Screen Width/Character length  + padding) X (Screen height/Character height).
 
 Functions
 ----------------------------------------
+ 
+Look in the NOKIA5110_TEXT.h header file at the function headers  for more detailed information.
  
 1. NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK)
 
@@ -163,9 +176,10 @@ The Bias Value is for system biasing, try about 0x13-0X14
 gotoXY routine to position cursor,  x - range: 0 to 84 (0 to 0x53), 
 y - range: 0 to 5 ( 6 blocks one byte each 6 * 8 = 48
 
-4. LCDClear(void)
+4. LCDClear(uint8_t )
 
-Clears the LCD by writing zeros to the entire screen
+Clears the LCD by writing zeros to the entire screen.
+Default is zero but can be passed a fill pattern
 
 5. LCDWrite(unsigned char , unsigned char)
 
@@ -210,16 +224,31 @@ Prints a character to screen.
 Passed Col and row position of a pixel , can be used to set a individual pixel
 Can be used to create simple graphics like lines, boxes.
 
+14. LCDFillBlock(uint8_t  , uint8_t);
+
+Can be used to fill a row with a pattern.
+
+15. 	LCDCustomChar(unsigned chararray, uint16_t, uint8_t , bool  )
+
+Can be used to create custom characters and Bitmaps.
+
+
 Memory
 ---------------------------
 
-Memory usage of a basic print "HELLO" program.
+Tested on an Arduino UNO.
 
-Font 1 default.
-Sketch uses 1872 bytes (6%) of program storage space. 
-Global variables use 24 bytes (1%) of dynamic memory.
-Font 6 tiny. 
-Sketch uses 1688 bytes (5%) of program storage space. 
-Global variables use 24 bytes (1%) of dynamic memory. 
+1. NOKIA5110_HELLOWORLD sketch, Font 1 "default".
 
-This compares to Adafruit text based library example of 20% and 38% for program storage and global variables respectively. 
+Sketch uses 1956 bytes (6%) of program storage space and 32 bytes (1%) of dynamic memory.
+
+2. NOKIA5110_HELLOWORLD sketch, Font 6 "tiny".
+
+Sketch uses 1772 bytes (5%) of program storage space and 32 bytes (1%) of dynamic memory.
+
+3. NOKIA5110_HELLOWORLD  sketch ,Font 6 "large".
+Sketch uses 2988 bytes (9%) of program storage space and 32 bytes (1%) of dynamic memory.
+
+All fonts enabled for the NOKIA5110_TEXT_FONTS sketch example.
+
+4. Sketch uses 7340 bytes (22%) of program storage space and 106 bytes (5%) of dynamic memory.

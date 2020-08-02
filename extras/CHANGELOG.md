@@ -14,14 +14,18 @@
 	
 * version 1.2.0 Jan 2020
 	* Added "Font two"
-
-* Version 1.2.1 Feb 2020
-	* Minor update , Use define statements to let User pick required fonts
+	
+* Version 1.3.0 Feb 2020
+	* Use define statements to let User pick required fonts
 	for their use case 
 	* Method LCDFont() input parameter is changed from bool to int to enable font selection
-
-* Version 1.3.0 2020
 	* Added 3 new fonts( Wide, Tiny and Segment) 
 	* created A set pixel method for basic graphics
 	* removed pinmode statements from constructor
 	
+* Version 2.0.0 July 2020
+	* LCDFillBlock() method added
+	* Modify LCDclear() to take parameter to fill screen with pattern.
+	* LCDCustomChar() method added to display custom characters and bitmap
+	* Added two new Large Fonts,  Font 7 Large(16*12) and Font 8 Huge (24*16)
+	* Added new example file. 
