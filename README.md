@@ -21,10 +21,13 @@ Overview
 1. Arduino library.      
 2. Inverse, Bias and contrast control. 
 3. ASCII strings and character text display.
-4. Six ASCII text fonts. Basic graphics. 
+4. Eight different ASCII text fonts. 
 5. Sleep mode.
 6. Designed to be light weight, low memory footprint. see memory section.
-
+7. Custom characters and bitmap supported
+8. No graphics buffer to reduce memory footprint but 
+basic graphics can be created using custom characters, pixels, block patterns , lines.
+ 
 * Author: Gavin Lyons
 * Arduino IDE: 1.8.5
 * Tested: UNO and NANO v3.
