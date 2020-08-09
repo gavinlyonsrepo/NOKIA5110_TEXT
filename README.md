@@ -11,7 +11,7 @@ Table of contents
   * [Fonts](#fonts)
   * [Functions](#functions)
   * [Memory](#memory)
-  * [Tested Boards(#tested-boards)
+  * [Tested Boards](#tested-boards)
   
 Overview
 --------------------
@@ -19,7 +19,7 @@ Overview
 * Title : Library for Nokia 5110 LCD (PCD8544 controller) for the Arduino eco-system
 * Description : 
 
-1. Arduino library.      ]
+1. Arduino library.  
 2. Inverse, Bias and contrast control. 
 3. ASCII strings and character text display.
 4. Eight different ASCII text fonts. 
