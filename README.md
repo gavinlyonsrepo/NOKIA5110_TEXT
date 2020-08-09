@@ -11,6 +11,7 @@ Table of contents
   * [Fonts](#fonts)
   * [Functions](#functions)
   * [Memory](#memory)
+  * [Tested Boards(#tested-boards)
   
 Overview
 --------------------
@@ -18,7 +19,7 @@ Overview
 * Title : Library for Nokia 5110 LCD (PCD8544 controller) for the Arduino eco-system
 * Description : 
 
-1. Arduino library.      
+1. Arduino library.      ]
 2. Inverse, Bias and contrast control. 
 3. ASCII strings and character text display.
 4. Eight different ASCII text fonts. 
@@ -30,14 +31,14 @@ basic graphics can be created using custom characters, pixels, block patterns , 
  
 * Author: Gavin Lyons
 * Arduino IDE: 1.8.5
-* Tested: UNO and NANO v3.
+* Tested: UNO, NANO v3 and ESP8266 Nodemcu ESP-12e v0.1
 
 Output
 ---------------------------------
 
 Output Screenshots, From left to right top to bottom.
 
-1. Custom characters 
+1. Custom characters, [Website to create them](https://javl.github.io/image2cpp/) .
 2. Font 7 "Large"
 3. Half bitmap + Font 7 "large"
 4. Full Bitmap 
@@ -107,14 +108,14 @@ Pinout of a Nokia 5110 LCD.
 
 ![ pinout ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA_PINOUT.jpg)
 
-The LCD Vcc runs at 3.3V so you'll need to use level shifting/dropping  to use with safely with  5V microcontroller.
+The LCD Vcc runs at 3.3V. The signal lines run at 3.3V level so you'll need to use voltage level shifting/dropping to use with safely with  5V microcontroller.
 
 Fonts 
 ---------------------------
 
 There are 8 fonts.
 By default only Font 1 is commented in and ready to go.
-So to use a non-default Font (2-8), two steps.
+So to use a non-default Font (2-8), two steps to complete
 
 1. Comment in the respective define at top of library header file NOKIA5110_TEXT.h in the FONT DEFINE SECTION.
 2. Call LCDFont function and pass it number of respective font.
@@ -124,16 +125,16 @@ Each font is a header file, NOKIA5110_FONT_X.h where X is number of Font(1-8)
 
 **Font table**
 
-| Font num | Font name | Pixel size | total characters |
-| ------ | ------ | ------ | ------ |
-| 1 | Default | 5x8 | (84/5+2) * (48/8) = 72 |
-| 2 | Thick   | 7x8 | (84/7+2) * (48/8)  = 54 |
-| 3 | Aurebesh | 5x8 | (84/5+2) * (48/8)  = 72 |
-| 4 | Seven segment | 4x8 | (84/4+2) * (48/8) = 84 |
-| 5 | Wide | 8x8 | (84/8+2) * (48/8) = 48 |
-| 6 | Tiny | 3x8 | (84/3+2) * (48/8) = 96  |
-| 7 | Large | 12x16 | (84/12) * (48/16) = 21 |
-| 8 | Huge | 16x24 | (84/16) * (48/24) = 10  |
+| Font num | Font name | Pixel size | total characters | blocks used |
+| ------ | ------ | ------ | ------ | ----- |
+| 1 | Default | 5x8 | (84/5+2) * (48/8) = 72 | 1 |
+| 2 | Thick   | 7x8 | (84/7+2) * (48/8)  = 54 |  1 |
+| 3 | Aurebesh | 5x8 | (84/5+2) * (48/8)  = 72 | 1 |
+| 4 | Seven segment | 4x8 | (84/4+2) * (48/8) = 84 | 1 |
+| 5 | Wide | 8x8 | (84/8+2) * (48/8) = 48 | 1 |
+| 6 | Tiny | 3x8 | (84/3+2) * (48/8) = 96  | 1 |
+| 7 | Large | 12x16 | (84/12) * (48/16) = 21 | 2 |
+| 8 | Huge | 16x24 | (84/16) * (48/24) = 10  | 3| 
 
 | Font num | Font file  | Font define  | Note |
 | ------ | ------ | ------ | ------ | 
@@ -149,7 +150,7 @@ Each font is a header file, NOKIA5110_FONT_X.h where X is number of Font(1-8)
 Note:
 For fonts 1-6 Each character is a byte of pixels in height(Y). One pixel of empty space on each side 
 is added by code. So a 5x8 (XxY) pixel character is in reality 7x8. 
-Each of the six rowblock is one byte height. So to get total number of characters,
+Each of the first six rowblock is one byte height. So to get total number of characters,
 divide screen width ( 84 ) by number of characters across and multiple by number of rowblocks,
  ( 6, 3 or 2 ) 6 in this case.
 For example with "default" is a 5x8 pixel font with the two blank spaces its 7x8 for each character, 
@@ -227,11 +228,11 @@ Prints a character to screen.
 Passed Col and row position of a pixel , can be used to set a individual pixel
 Can be used to create simple graphics like lines, boxes.
 
-14. LCDFillBlock(uint8_t  , uint8_t);
+14. LCDFillBlock(uint8_t  , uint8_t)
 
 Can be used to fill a row with a pattern.
 
-15. 	LCDCustomChar(unsigned chararray, uint16_t, uint8_t , bool  )
+15. LCDCustomChar(unsigned chararray, uint16_t, uint8_t , bool  )
 
 Can be used to create custom characters and Bitmaps.
 
@@ -239,7 +240,7 @@ Can be used to create custom characters and Bitmaps.
 Memory
 ---------------------------
 
-Tested on an Arduino UNO.
+Memory usage data from an Arduino UNO.
 
 1. NOKIA5110_HELLOWORLD sketch, Font 1 "default".
 
@@ -250,8 +251,26 @@ Sketch uses 1956 bytes (6%) of program storage space and 32 bytes (1%) of dynami
 Sketch uses 1772 bytes (5%) of program storage space and 32 bytes (1%) of dynamic memory.
 
 3. NOKIA5110_HELLOWORLD  sketch ,Font 6 "large".
+
 Sketch uses 2988 bytes (9%) of program storage space and 32 bytes (1%) of dynamic memory.
 
 All fonts enabled for the NOKIA5110_TEXT_FONTS sketch example.
 
 4. Sketch uses 7340 bytes (22%) of program storage space and 106 bytes (5%) of dynamic memory.
+
+Tested Boards
+------------------------------------
+
+1. Arduino UNO 
+2. Arduino Nano v3
+3. ESP8266 NodeMcu ESP-12e v0.1 at both 80 and 160 MHz
+
+Note  ESP8266:
+
+See issue 1 on github for pinout used.
+The only problem here is the example file called,
+"NOKIA5110_BITMAP.ino" it will not compile on ESP8266,
+invalid conversion from 'const unsigned char*' to 'unsigned char*',
+As a workaround until fixed, remove the const keyword from mybitmap and mybitmap2.
+
+ 
