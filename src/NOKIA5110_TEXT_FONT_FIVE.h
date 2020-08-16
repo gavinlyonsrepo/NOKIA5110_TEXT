@@ -2,10 +2,11 @@
 
 // Define the ASCII table as Data array
 // cols left to right 0x00 is  off 0xFF is all on
-// Each character is 8 bytes wide one byte height. 
+// Each character is 8 bits wide one byte height. 
 // so ! is {0x00,0x5f,0x00,0x00,0x00,0x00,0x00,0x00}, A
 // Also in code adds two blank lines on either side so in effect  
 // Each character is in a 10 by 8 bit pixel box 
+// NO LOWERCASE LETTERS
 
 #ifndef NOKIA5110_TEXT_FONT_FIVE_H
 #define NOKIA5110_TEXT_FONT_FIVE_H

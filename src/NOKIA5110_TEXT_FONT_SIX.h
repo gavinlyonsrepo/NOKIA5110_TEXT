@@ -2,7 +2,7 @@
 
 // Define the ASCII table as Data array
 // cols left to right, 0x00 is off, 0xFF is all on
-// Each character is 3 bytes wide one byte height. 
+// Each character is 3 bits wide one byte height. 
 // Each character is in a 5 by 8 pixel box ( two blanks bytes on either side added in code)
 
 

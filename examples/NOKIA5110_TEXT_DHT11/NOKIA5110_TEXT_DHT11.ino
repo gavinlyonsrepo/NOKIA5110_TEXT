@@ -1,4 +1,6 @@
-// Test file for NOKIA5110_TEXT showing use of library with a DHT11 sensor data.
+// Test file for NOKIA5110_TEXT library
+// Practical example showing use of library with a DHT11 sensor data.
+// Tested on arduino UNO , ONLY.
 // URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT 
 
 #include <dht.h> //DHT11
@@ -8,8 +10,8 @@
 // RST 2/ CD 3/ DC 4/ DIN 5/ CLK 6
 NOKIA5110_TEXT mylcd(2, 3, 4, 5, 6);
 #define inverse  false
-#define contrast 0xBE // default is 0xBF set in LCDinit, Try 0xB1(good @ 3.3V) or 0xBF if your display is too dark
-#define bias 0x13 // LCD bias mode 1:48: Try 0x13 or 0x14
+#define contrast 0xB2 // default is 0xBF set in LCDinit, Try 0xB1-> 0xBF if your display is too dark
+#define bias 0x12 // LCD bias mode 1:48: Try 0x13 or 0x14
 #define FontNumber 1
 
 //dht

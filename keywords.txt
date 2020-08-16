@@ -21,6 +21,7 @@ LCDFont	KEYWORD2
 LCDSetPixel	KEYWORD2
 LCDCustomChar	KEYWORD2
 LCDFillBlock	KEYWORD2
+LCDIsSleeping	KEYWORD2
 
 # Constants
 

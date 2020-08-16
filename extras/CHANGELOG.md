@@ -29,3 +29,11 @@
 	* LCDCustomChar() method added to display custom characters and bitmap
 	* Added two new Large Fonts,  Font 7 Large(16*12) and Font 8 Huge (24*16)
 	* Added new example file. 
+	
+* Version 2.1.0 August 2020
+	* "Bias" member created.
+	* Issue 1 on github closed , public access to "sleep" member granted via new function LCDisSleeping()
+	* Added font 9 "Mega" 16*32, takes 4 row blocks, 5 characters max. 
+	* Changed function header of "LCDCustomChar()" so it complies for ESP32
+	* Tested on new boards : ESP32, ESP8266 and STM32 "blue pill" , It Works!!
+	

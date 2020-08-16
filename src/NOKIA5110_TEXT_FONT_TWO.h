@@ -2,13 +2,13 @@
 
 // Define the ASCII table as Data array
 // cols left to right 0x00 is  off 0xFF is all on
-// Each character is 7 bytes wide one byte height. 
+// Each character is 7 bits wide one byte height. 
 // so ! is 0x5f,0x5f,0x00,0x00,0x00,0x00,0x00,0x00 , Also the code adds two blank lines on LHS and RHS side 
 // Each character is in a 9 by 8 bit pixel box.
+// NO LOWERCASE LETTERS
 
 #ifndef NOKIA5110_TEXT_FONT_TWO_H
 #define NOKIA5110_TEXT_FONT_TWO_H
-
 
 const PROGMEM  unsigned char ASCII_TWO[][8] = {
 	{0x00,0x00,0x00,0x00,0x00,0x00,0x00}, //  

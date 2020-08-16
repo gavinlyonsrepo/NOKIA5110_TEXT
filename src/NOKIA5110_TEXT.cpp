@@ -31,6 +31,7 @@ void NOKIA5110_TEXT::LCDInit(bool Inverse, uint8_t Contrast,uint8_t Bias) {
 	pinMode(_LCD_DIN,OUTPUT);
 	pinMode(_LCD_CLK,OUTPUT);
 	_inverse = Inverse;
+	_bias = Bias;
 	_contrast = Contrast;
 	//Configure control pins
 	_LCD_DIN_SetLow;
@@ -40,9 +41,9 @@ void NOKIA5110_TEXT::LCDInit(bool Inverse, uint8_t Contrast,uint8_t Bias) {
 	_LCD_RST_SetLow;
 	_LCD_RST_SetHigh;
 	LCDWrite(LCD_COMMAND, LCD_COMMAND_MODE); //Tell LCD that extended commands follow
-	LCDWrite(LCD_COMMAND, _contrast); //Set LCD Vop (Contrast): Try 0xB1(good @ 3.3V) or 0xBF if your display is too dark
+	LCDWrite(LCD_COMMAND, _contrast); //Set LCD Vop (Contrast): Try 0xB1 or 0xBF if your display is too dark
 	LCDWrite(LCD_COMMAND, LCD_TEMP_COEF); //Set Temp coefficent
-	LCDWrite(LCD_COMMAND, Bias); //LCD bias mode 1:48: Try 0x13 or 0x14
+	LCDWrite(LCD_COMMAND, _bias); //LCD bias mode 1:48: Try 0x13 or 0x14
 	LCDWrite(LCD_COMMAND, LCD_FUNCTIONSET ); //We must send 0x20 before modifying the display control mode
 	if (_inverse  == false)
 		LCDWrite(LCD_COMMAND, LCD_DISPLAYCONTROL); //Set display control, normal mode. 0x0D for inverse
@@ -100,124 +101,18 @@ void NOKIA5110_TEXT::LCDWrite(unsigned char data_or_command, unsigned char data)
 
 void NOKIA5110_TEXT::LCDCharacter(char character) 
 {
-	uint8_t column = 0;
-	if (_FontNumber != 7  && _FontNumber != 8){  // Large fonts no padding 
-		LCDWrite(LCD_DATA, 0x00); }//Blank vertical line padding , LHS
-	
 	switch(_FontNumber)
 	{
-		case 1:
-			#ifdef NOKIA5110_FONT_1
-				for (column = 0 ; column < LCD_FONT_WIDTH_1 ; column++){
-					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII[character - LCD_ASCII_OFFSET][column])));
-				}
-			#endif
-		break;
-		case 2:
-			#ifdef NOKIA5110_FONT_2
-				for (column = 0 ; column < LCD_FONT_WIDTH_2 ; column++) {
-					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_TWO[character - LCD_ASCII_OFFSET][column])));
-				}
-			#endif
-		break;
-		case 3:
-			#ifdef NOKIA5110_FONT_3
-				for (column = 0 ; column < LCD_FONT_WIDTH_3 ; column++) {
-					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_THREE[character - LCD_ASCII_OFFSET][column])));
-				}
-			#endif
-		break;
-		case 4:
-			#ifdef NOKIA5110_FONT_4
-				for (column = 0 ; column < LCD_FONT_WIDTH_4 ; column++) {
-					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_FOUR[character - LCD_ASCII_OFFSET][column])));
-				}
-			#endif
-		break;
-		case 5:
-			#ifdef NOKIA5110_FONT_5
-				for (column = 0 ; column < LCD_FONT_WIDTH_5 ; column++){
-					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_FIVE[character - LCD_ASCII_OFFSET][column])));
-				}
-			#endif
-		break;
-		case 6:
-			#ifdef NOKIA5110_FONT_6
-				for (column = 0 ; column < LCD_FONT_WIDTH_6 ; column++){
-					LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_SIX[character - LCD_ASCII_OFFSET][column])));
-				}
-			#endif
-		break;
-		case 7:
-		{
-			#ifdef NOKIA5110_FONT_7
-					uint16_t totalchar = 0;
-					uint8_t  topchar =0;
-					uint8_t  botchar =0;
-					//print upper byte
-					for (column = 0 ; column < LCD_FONT_WIDTH_7 ; column++){
-							totalchar = (pgm_read_word(&ASCII_SEVEN[character  - LCD_ASCII_OFFSET][column]));
-							topchar = totalchar & 0x00FF;
-							LCDWrite(LCD_DATA, topchar);
-						}
-						//Move to next block
-						LCDgotoXY(_Col, _Block+1);
-						//print lowerbyte
-						for (column = 0 ; column < LCD_FONT_WIDTH_7 ; column++){
-							totalchar = (pgm_read_word(&ASCII_SEVEN[character  - LCD_ASCII_OFFSET][column]));
-							botchar = (totalchar >> 8) & 0xFF;
-							LCDWrite(LCD_DATA, botchar);
-						}
-						//move back to upper block  
-						LCDgotoXY(_Col+12 , _Block-1);
-			#endif
-		
-		break;
-		}
-		case 8:
-		{
-			#ifdef NOKIA5110_FONT_8
-						uint32_t totalchartwo = 0;
-						uint8_t  topchartwo =0;
-						uint8_t  midchartwo =0;
-						uint8_t  botchartwo =0;
-						
-						//print upper byte
-						for (column = 0 ; column < LCD_FONT_WIDTH_8 ; column++)
-						{
-							totalchartwo =  (pgm_read_dword_near(&ASCII_EIGHT[character - LCD_ASCII_OFFSET_ZERO][column]));
-							topchartwo = totalchartwo & 0xFF;
-							LCDWrite(LCD_DATA, topchartwo);
-						}
-						totalchartwo=0;
-						//goto next block
-						LCDgotoXY(_Col, _Block+1);
-						for (column = 0 ; column < LCD_FONT_WIDTH_8 ; column++)
-						{
-							totalchartwo = (pgm_read_dword_near(&ASCII_EIGHT[character - LCD_ASCII_OFFSET_ZERO][column]));
-							midchartwo = (totalchartwo >> 8) & 0xFF;
-							LCDWrite(LCD_DATA, midchartwo);
-						}
-						totalchartwo=0;
-						//goto next block
-						LCDgotoXY(_Col, _Block+1);
-						//print lower byte
-						for (column = 0 ; column < LCD_FONT_WIDTH_8 ; column++)
-						{
-							totalchartwo =  (pgm_read_dword_near(&ASCII_EIGHT[character - LCD_ASCII_OFFSET_ZERO][column]));
-							botchartwo = (totalchartwo >> 16) & 0xFF;
-							LCDWrite(LCD_DATA, botchartwo);
-						}
-						//move back for next character 
-						LCDgotoXY(_Col + LCD_FONT_WIDTH_8, _Block-2);
-			#endif
-		   
-		break;
-		}
-	} // end switch
-	
-	if (_FontNumber != 7 && _FontNumber != 8){  // Large fonts no padding 
-		LCDWrite(LCD_DATA, 0x00); }//Blank vertical line padding RHS
+		case 1: LCDdraw_fonts_1TO6(character, LCD_FONT_WIDTH_1); break;
+		case 2: LCDdraw_fonts_1TO6(character, LCD_FONT_WIDTH_2); break;
+		case 3: LCDdraw_fonts_1TO6(character, LCD_FONT_WIDTH_3); break;
+		case 4: LCDdraw_fonts_1TO6(character, LCD_FONT_WIDTH_4); break;
+		case 5: LCDdraw_fonts_1TO6(character, LCD_FONT_WIDTH_5); break;
+		case 6: LCDdraw_fonts_1TO6(character, LCD_FONT_WIDTH_6); break;
+		case 7: LCDdraw_fonts_7(character); break;
+		case 8: LCDdraw_fonts_8TO9(character); break;
+		case 9: LCDdraw_fonts_8TO9(character); break;
+	}
 }
 
 void NOKIA5110_TEXT::LCDString(const char  *characters) {
@@ -258,7 +153,7 @@ void NOKIA5110_TEXT::LCDdisableSleep()
 	LCDWrite(LCD_COMMAND , LCD_COMMAND_MODE);
 	LCDWrite(LCD_COMMAND , _contrast);
 	LCDWrite(LCD_COMMAND,  LCD_TEMP_COEF );
-	LCDWrite(LCD_COMMAND,  LCD_BIAS );
+	LCDWrite(LCD_COMMAND,  _bias );
 	LCDWrite(LCD_COMMAND, LCD_FUNCTIONSET );
 	if (_inverse  == false)
 		LCDWrite(LCD_COMMAND, LCD_DISPLAYCONTROL); //Set display control, normal mode. 0x0D for inverse
@@ -274,7 +169,7 @@ void NOKIA5110_TEXT::LCDFillBlock(uint8_t FillData , uint8_t RowBlockNum) {
 		}
 	}
 
-void NOKIA5110_TEXT::LCDCustomChar(unsigned char character[], uint16_t numChars ,uint8_t padding, bool ProgMemLocale ) 
+void NOKIA5110_TEXT::LCDCustomChar(const unsigned char character[], uint16_t numChars ,uint8_t padding, bool ProgMemLocale ) 
 {
 
 	uint16_t column = 0; // max 504 bytes.
@@ -297,4 +192,167 @@ void NOKIA5110_TEXT::LCDCustomChar(unsigned char character[], uint16_t numChars 
 		}
 }
 
+void NOKIA5110_TEXT::LCDdraw_fonts_1TO6(char character, uint8_t font_width)
+{
+	LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding , LHS
+	for (uint8_t  column = 0 ; column < font_width ; column++)
+	{
+		switch(_FontNumber)
+		{
+		case 1: 
+		#ifdef NOKIA5110_FONT_1
+			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII[character - LCD_ASCII_OFFSET][column]))); 
+		#endif
+		break;
+		case 2: 
+		#ifdef NOKIA5110_FONT_2
+			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_TWO[character - LCD_ASCII_OFFSET][column]))); 
+		#endif
+		break;
+		case 3: 
+		#ifdef NOKIA5110_FONT_3
+			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_THREE[character - LCD_ASCII_OFFSET][column]))); 
+		#endif
+		break;
+		case 4: 
+		#ifdef NOKIA5110_FONT_4
+			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_FOUR[character - LCD_ASCII_OFFSET][column]))); 
+		#endif
+		break;
+		case 5: 
+		#ifdef NOKIA5110_FONT_5
+			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_FIVE[character - LCD_ASCII_OFFSET][column]))); 
+		#endif
+		break;
+		case 6: 
+		#ifdef NOKIA5110_FONT_6
+			LCDWrite(LCD_DATA, (pgm_read_byte(&ASCII_SIX[character - LCD_ASCII_OFFSET][column]))); 
+		#endif
+		break;
+		}
+	}
+	LCDWrite(LCD_DATA, 0x00); //Blank vertical line padding RHS
+}
+
+void NOKIA5110_TEXT::LCDdraw_fonts_7(char character)
+{
+	#ifdef NOKIA5110_FONT_7
+		uint16_t totalchar = 0;
+		uint8_t  topchar =0;
+		uint8_t  botchar =0;
+		uint8_t column= 0;
+		//print upper byte
+		for (column = 0 ; column < LCD_FONT_WIDTH_7 ; column++){
+				totalchar = (pgm_read_word(&ASCII_SEVEN[character  - LCD_ASCII_OFFSET][column]));
+				topchar = totalchar & 0x00FF;
+				LCDWrite(LCD_DATA, topchar);
+			}
+			//Move to next block
+			LCDgotoXY(_Col, _Block+1);
+			//print lowerbyte
+			for (column = 0 ; column < LCD_FONT_WIDTH_7 ; column++){
+				totalchar = (pgm_read_word(&ASCII_SEVEN[character  - LCD_ASCII_OFFSET][column]));
+				botchar = (totalchar >> 8) & 0xFF;
+				LCDWrite(LCD_DATA, botchar);
+			}
+			//move back to upper block  
+			LCDgotoXY(_Col+LCD_FONT_WIDTH_7  , _Block-1);
+	#endif
+}
+
+void NOKIA5110_TEXT::LCDdraw_fonts_8TO9(char character)
+{
+	// 0XAABBCCDD font 9 32 bit high,   0X00BBCCDD font 8  24 bit high
+	// DD DD	Upperbyte
+	// CC CC   upper middle
+	// BB  BB lower middle
+	// AA      lower byte
+
+		uint32_t totaldata = 0;
+		uint8_t  topbyte =0;
+		uint8_t  middleupperbyte=0;
+		uint8_t  middlelowerbyte =0;
+		uint8_t  lowerbyte =0;
+		uint8_t column= 0;
+		//print upper byte  DD
+		for (column = 0 ; column < LCD_FONT_WIDTH_8 ; column++)
+		{
+			if (_FontNumber == 8)
+				{
+				#ifdef NOKIA5110_FONT_8
+					totaldata =  (pgm_read_dword_near(&ASCII_EIGHT[character - LCD_ASCII_OFFSET_ZERO][column]));
+				#endif
+			}
+			else{
+				#ifdef NOKIA5110_FONT_9
+					totaldata =  (pgm_read_dword_near(&ASCII_NINE[character - LCD_ASCII_OFFSET_ZERO][column]));
+				#endif
+				}
+			topbyte = totaldata & 0xFF;
+			LCDWrite(LCD_DATA, topbyte);
+		}
+		totaldata=0;
+		LCDgotoXY(_Col, _Block+1); //goto next block
+		
+		// print middle upper byte CC
+		for (column = 0 ; column < LCD_FONT_WIDTH_8 ; column++)
+		{
+			if (_FontNumber == 8)
+				{
+				#ifdef NOKIA5110_FONT_8
+					totaldata =  (pgm_read_dword_near(&ASCII_EIGHT[character - LCD_ASCII_OFFSET_ZERO][column]));
+				#endif
+				}
+			else{
+				#ifdef NOKIA5110_FONT_9
+					totaldata =  (pgm_read_dword_near(&ASCII_NINE[character - LCD_ASCII_OFFSET_ZERO][column]));
+				#endif
+				}
+			middleupperbyte= (totaldata >> 8) & 0xFF;
+			LCDWrite(LCD_DATA, middleupperbyte);
+		}
+		totaldata=0;
+		LCDgotoXY(_Col, _Block+1); //goto next block
+		
+		// print middle lower byte BB
+		for (column = 0 ; column < LCD_FONT_WIDTH_8 ; column++)
+		{
+			if (_FontNumber == 8)
+				{
+				#ifdef NOKIA5110_FONT_8
+					totaldata =  (pgm_read_dword_near(&ASCII_EIGHT[character - LCD_ASCII_OFFSET_ZERO][column]));
+				#endif
+				}
+			else
+				{
+				#ifdef NOKIA5110_FONT_9
+					totaldata =  (pgm_read_dword_near(&ASCII_NINE[character - LCD_ASCII_OFFSET_ZERO][column]));
+				#endif
+				}
+			middlelowerbyte = (totaldata >> 16) & 0xFF;
+			LCDWrite(LCD_DATA, middlelowerbyte);
+		}
+		
+		// print lower byte AA, no need if printing font 8 
+		if (_FontNumber == 8)
+			LCDgotoXY(_Col + LCD_FONT_WIDTH_8, _Block-2); 	//move back for next character 
+		else
+			{
+			totaldata=0;
+			LCDgotoXY(_Col, _Block+1); //goto next block
+				for (column = 0 ; column < LCD_FONT_WIDTH_8 ; column++)
+				{
+				#ifdef NOKIA5110_FONT_9
+					totaldata =  (pgm_read_dword_near(&ASCII_NINE[character - LCD_ASCII_OFFSET_ZERO][column]));
+					lowerbyte = (totaldata >> 24) & 0xFF;
+					LCDWrite(LCD_DATA, lowerbyte);
+				#endif
+				}
+			LCDgotoXY(_Col + LCD_FONT_WIDTH_8, _Block-3); 	//move back for next character 
+			}
+
+}
+
+bool NOKIA5110_TEXT::LCDIsSleeping() { return _sleep;}
+ 
 /* =========== EOF ===========*/
