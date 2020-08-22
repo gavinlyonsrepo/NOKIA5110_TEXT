@@ -6,7 +6,7 @@
 #include <NOKIA5110_TEXT.h>
 
 //LCD Nokia 5110 pinout left to right
-// RST 1/ CD 2/ DC 3/ DIN 5/ CLK 5 / VCC 6 /LED 7 /GND 8
+// RST 1/ CE 2/ DC 3/ DIN 4/ CLK 5 / VCC 6 /LIGHT 7 /GND 8
 // Create an LCD object
 NOKIA5110_TEXT mylcd(2, 3, 4, 5, 6);
 
