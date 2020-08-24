@@ -4,7 +4,7 @@
 // cols left to right, 0x00 is off, 0xFF is all on
 // Each character is 16 bits wide,  3 byte height. 
 
-//Numbers + . : only. type / for a space 
+// Numbers + . : only. type / for a space 
 
 
 #ifndef NOKIA5110_TEXT_FONT_EIGHT_H

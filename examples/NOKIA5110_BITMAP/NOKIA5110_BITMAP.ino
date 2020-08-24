@@ -2,18 +2,25 @@
 // Test file for NOKIA5110_TEXT showing how to fill entire screen with a bitmap 84 * 48 = 504 bytes
 // URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
 
-//Include the library
+// Include the library
 #include <NOKIA5110_TEXT.h>
 
-//LCD Nokia 5110 pinout left to right
-// RST 1/ CD 2/ DC 3/ DIN 4/ CLK 5
+// LCD Nokia 5110 pinout left to right
+// RST / CE / DC / DIN / CLK / LIGHT / GND
+
+#define RST 2 // Reset pin
+#define CE 3 // Chip enable
+#define DC 4 // data or command
+#define DIN 5 // Serial Data input
+#define CLK 6 // Serial clock
+
 // Create an LCD object
-NOKIA5110_TEXT mylcd(2, 3, 4, 5, 6);
+NOKIA5110_TEXT mylcd(RST, CE, DC, DIN, CLK);
 
 #define inverse  false
-#define contrast 0xB2 // default is 0xBF set in LCDinit, Try 0xB1 -> 0xBF if your display is too dark
+#define contrast 0xB2 // default is 0xBF set in LCDinit, Try 0xB1 - 0xBF if your display is too dark
 #define bias 0x13 // LCD bias mode 1:48: Try 0x13 or 0x14
-#define FontNumber 1 //1-6, 1 is default ,  Comment in  defines at top of  NOKIA5110_TEXT.h if using non default
+#define FontNumber 1 // 1-6, 1 is default, Comment in defines at top of NOKIA5110_TEXT.h if using non default
 
 // 'image1', 84x48px
 const PROGMEM  unsigned char mybitmap[504] = {
@@ -73,7 +80,7 @@ const PROGMEM unsigned char mybitmap2[252] = {
 
 void setup() {
   delay(1000);
-  mylcd.LCDInit(inverse, contrast, bias); // init  the lCD
+  mylcd.LCDInit(inverse, contrast, bias); // init  the LCD
   mylcd.LCDClear(0x00); // Clear whole screen
   mylcd.LCDFont(FontNumber); // Set the font
   mylcd.LCDgotoXY(0, 0); // (go to (X , Y) (0-84 columns, 0-5 blocks) top left corner
@@ -90,7 +97,7 @@ void loop() {
   delay(5000);
   mylcd.LCDClear(0x00);
 
-  //Test full size bitmap 504 bytes
+  // Test full size bitmap 504 bytes
   mylcd.LCDCustomChar(mybitmap, sizeof(mybitmap) / sizeof(unsigned char), 0x00, true);
   delay(5000);
   mylcd.LCDClear(0x00);

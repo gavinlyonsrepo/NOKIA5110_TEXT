@@ -3,35 +3,44 @@
 // Tested on arduino UNO , ONLY.
 // URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT 
 
-#include <dht.h> //DHT11
+#include <dht.h> // DHT11
 #include <NOKIA5110_TEXT.h>
 
-//LCD Nokia 5110 pinout left to right
-// RST 2/ CD 3/ DC 4/ DIN 5/ CLK 6
-NOKIA5110_TEXT mylcd(2, 3, 4, 5, 6);
+// LCD Nokia 5110 pinout left to right
+// RST / CE / DC / DIN / CLK / LIGHT / GND
+
+#define RST 2 // Reset pin
+#define CE 3 // Chip enable
+#define DC 4 // data or command
+#define DIN 5 // Serial Data input
+#define CLK 6 // Serial clock
+
+// Create an LCD object
+NOKIA5110_TEXT mylcd(RST, CE, DC, DIN, CLK);
+
 #define inverse  false
-#define contrast 0xB2 // default is 0xBF set in LCDinit, Try 0xB1-> 0xBF if your display is too dark
+#define contrast 0xB2 // default is 0xBF set in LCDinit, Try 0xB1 - 0xBF if your display is too dark
 #define bias 0x12 // LCD bias mode 1:48: Try 0x13 or 0x14
 #define FontNumber 1
 
-//dht
-#define dht_dpin A0 //no ; here. Set equal to channel sensor is on
+// dht
+#define dht_dpin A0 // no ; here. Set equal to channel sensor is on
 
 void setup() {
   // put your setup code here, to run once:
   Serialinit();
-  //setup lcd
-  mylcd.LCDInit(inverse, contrast, bias); //init the lCD passed inverse true or false
-  mylcd.LCDClear(); //clear whole screen
-  mylcd.LCDFont(FontNumber); //use Font One default
+  // setup lcd
+  mylcd.LCDInit(inverse, contrast, bias); // init the lCD passed inverse true or false
+  mylcd.LCDClear(); // clear whole screen
+  mylcd.LCDFont(FontNumber); // use Font One default
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // put your main code here, to run repeatedly
   DisplayDHT();
 }
 
-//Function to setup serial called from setup
+// Function to setup serial called from setup
 void Serialinit()
 {
   Serial.begin(9600);
@@ -39,9 +48,9 @@ void Serialinit()
   Serial.println("------------- Comms UP------------");
 }
 
-//Function  to Display DHT11 sensor data to LCD
+// Function to Display DHT11 sensor data to LCD
 void DisplayDHT()
-{ //dht11.
+{ // dht11.
   dht DHT;
   static char outstrHum[8];
   static char outstrTemp[8];

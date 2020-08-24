@@ -14,9 +14,9 @@
   #include "WProgram.h"
 #endif
 
-// **********************************************
-// ******** FONT DEFINE SECTION ****** ****** 
-// Comment in the fonts YOU want, X_1 is default., see comments just  below in indef section for font  name.
+// ********************************************
+// ****** FONT DEFINE SECTION ****** 
+// Comment in the fonts YOU want, X_1 is default. See comments just below in indef section for font name.
 
 #define NOKIA5110_FONT_1 
 //#define NOKIA5110_FONT_2 
@@ -28,7 +28,7 @@
 //#define NOKIA5110_FONT_8
 //#define NOKIA5110_FONT_9
 
-// **** END OF FONT DEFINE SECTION ******  
+// ****** END OF FONT DEFINE SECTION ******  
 // ********************************************
 
 #ifdef NOKIA5110_FONT_1
@@ -41,7 +41,7 @@
 	#include "NOKIA5110_TEXT_FONT_THREE.h" // Aurebesh 5X8
 #endif
 #ifdef NOKIA5110_FONT_4
-	#include "NOKIA5110_TEXT_FONT_FOUR.h" //seven segment 4X8
+	#include "NOKIA5110_TEXT_FONT_FOUR.h" // Seven segment 4X8
 #endif
 #ifdef NOKIA5110_FONT_5
 	#include "NOKIA5110_TEXT_FONT_FIVE.h" // Wide  8X8 (NO LOWERCASE LETTERS)
@@ -59,22 +59,22 @@
 	#include "NOKIA5110_TEXT_FONT_NINE.h" // Mega 16 X 32 (numbers + . : / only)
 #endif
 
-//LCD Commands PCD8544_
-#define LCD_COMMAND_MODE 0x21  //FUNCTIONSET + extended instruction
-#define LCD_CONTRAST     0xBF  //Set LCD VOP Contrast Try 0xB1 or 0xBF if is too dark range = ((0x00-0x7F) |0x80)
-#define LCD_TEMP_COEF    0x04  //Set Temp coefficient
-#define LCD_BIAS         0x14  // //LCD bias mode 1:48: Try 0x13 or 0x14
-#define LCD_FUNCTIONSET  0x20  //We must send 0x20 before modifying the display control mode
-#define LCD_DISPLAYCONTROL 0x0C //Set display control, normal mode. 0x0D for inverse
-#define LCD_DISPLAYCONTROL_INVERSE 0x0D //Set display control, inverse mode. 0x0D for inverse
-#define LCD_POWERDOWN    0x24 //LCD power off
+// LCD Commands PCD8544_
+#define LCD_COMMAND_MODE 0x21  // FUNCTIONSET + extended instruction
+#define LCD_CONTRAST     0xBF  // Set LCD VOP Contrast Try 0xB1 or 0xBF if is too dark range = ((0x00-0x7F) |0x80)
+#define LCD_TEMP_COEF    0x04  // Set Temp coefficient
+#define LCD_BIAS         0x14  // LCD bias mode 1:48: Try 0x13 or 0x14
+#define LCD_FUNCTIONSET  0x20  // We must send 0x20 before modifying the display control mode
+#define LCD_DISPLAYCONTROL 0x0C // Set display control, normal mode. 0x0D for inverse
+#define LCD_DISPLAYCONTROL_INVERSE 0x0D // Set display control, inverse mode. 0x0D for inverse
+#define LCD_POWERDOWN    0x24 // LCD power off
 
 // Misc LCD Data 
 #define LCD_FONTNUMBER  0x01 // default Font number 1,  1 to 6 fonts
 #define LCD_ASCII_OFFSET 0x20 //0x20, ASCII character for Space, The font table starts with this character
 #define LCD_ASCII_OFFSET_ZERO 0x2E // ASCII code for . is 0X2E (. / 0 1 etc)
 
-//The DC pin tells the LCD if sending a command or data
+// The DC pin tells the LCD if sending a command or data
 #define LCD_COMMAND 0
 #define LCD_DATA 1
 
@@ -89,9 +89,9 @@
 #define LCD_FONT_WIDTH_4 4
 #define LCD_FONT_WIDTH_5 8
 #define LCD_FONT_WIDTH_6 3
-#define LCD_FONT_WIDTH_7 12 // No padding  , no lowercase letters
-#define LCD_FONT_WIDTH_8 16 // No padding ,  numbers only
-#define LCD_FONT_WIDTH_9 16 // No padding ,  numbers only
+#define LCD_FONT_WIDTH_7 12 // No padding , no lowercase letters
+#define LCD_FONT_WIDTH_8 16 // No padding , numbers only
+#define LCD_FONT_WIDTH_9 16 // No padding , numbers only
 
 
 // GPIO on/off
@@ -112,14 +112,14 @@ class NOKIA5110_TEXT {
   public:
    
     
-    //Constructor of the class object from left to right pin 1-5(LCD)
-    //RST pin 1, CD pin 2, DC pin 3, DIN pin 4, CLK pin 5 
+    // Constructor of the class object from left to right pin 1-5(LCD)
+    // RST pin 1, CE pin 2, DC pin 3, DIN pin 4, CLK pin 5 
 	 NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK);
 	
 	// Methods
 	
 	/*Function : LCDinit
-	This sends the  commands to the PCD8544 to init LCD. Inverse inverts the
+	This sends the commands to the PCD8544 to init LCD. Inverse inverts the
 	display. Contrast, This value allows us to change LCD's contrast Try B0 to BF.
 	The Bias Value is for system biasing, try about 0x12-0X14
 	*/
@@ -127,7 +127,7 @@ class NOKIA5110_TEXT {
 	
 	/* Function: gotoXY gotoXY routine to position cursor 
 		x- range: 0 to 83 (0 to 0x53)
-		y - range: 0 to 5 ( 6 blocks one byte each 6*8 = 48
+		y - range: 0 to 5 (6 blocks one byte each 6*8 = 48)
 	*/
 	void LCDgotoXY(uint8_t x, uint8_t y);
 	
@@ -151,24 +151,24 @@ class NOKIA5110_TEXT {
 	void LCDFont(uint8_t FontNumber);
 	
 	/* Function: LCDWrite 
-	There are two  banks in the LCD, data and commands. This
+	There are two banks in the LCD, data and commands. This
 	function sets the DC pin high or low depending, and then sends
-	the data byte  The first byte is one(data) or zero(cmd) , second byte data.
-	prints the byte down from current position , It is used internally 
+	the data byte. The first byte is one(data) or zero(cmd), second byte data.
+	Prints the byte down from current position, it is used internally 
 	to draw cols of characters it can be used to create vertical lines or patterns.
 	 */
 	void LCDWrite(unsigned char data_or_command, unsigned char data);
 	
 	/* Function: LCDCharacter.
-	 This function takes in a character, looks it up in the font table/array
-	And writes it to the screen
+	This function takes in a character, looks it up in the font table/array
+	And writes it to the screen.
 	Each character (default) is 8 bits tall and 5 bits wide. We pad one blank column of
 	pixels on each side of the character for readability.
 	 */
 	void LCDCharacter(char character);
 	
 	/* Function: LCDString.
-	 Given a string of characters, one by one is passed to the LCD
+	Given a string of characters, one by one is passed to the LCD.
 	The library can only take in characters and strings so if the user wants to display numbers (ints, floats)
 	They must be converted or parsed first, there is an example file "NOKA5110_TEXT_DHT11.ino" 
 	which shows one way to do this with floats.
@@ -176,8 +176,8 @@ class NOKIA5110_TEXT {
 	void LCDString(const char *characters);
 	
 	/* Function: LCDSetPixel
-	Function to set one pixel on
-	Passed two byte X and Y , Column and row position to set the the bit
+	Function to set one pixel on.
+	Passed two byte X and Y, Column and row position to set the the bit
 	X = 0-83 , Y = 0-47. Passed can be used to set a individual pixel
 	Can be used to create simple graphics like lines, boxes.
 	*/
@@ -190,45 +190,45 @@ class NOKIA5110_TEXT {
 	void LCDsetContrast(uint8_t contrast);
 	
 	/* Function: LCDenableSleep
-	  Put the LCD to Sleep function
+	  Put the LCD to Sleep function.
 	*/
 	void LCDenableSleep(void);
 	
 	/* Function: LCDdisableSleep
-	  wake the LCD up from Sleep
+	  Wake the LCD up from Sleep.
 	*/
 	void LCDdisableSleep(void);
 	
 	/* Function: LCDFillBlock
 	Clears one of the 6 row blocks(one byte height) on LCD 
 	by writing ones to the line. Send the row block number 0-5
-	The  pattern of data can be reversed by changing filldata
-	i.e 0x0F will half fill a block with ones
+	The pattern of data can be reversed by changing filldata
+	i.e 0x0F will half fill a block with ones.
 	*/
 	void LCDFillBlock(uint8_t FillData = 0xFF , uint8_t RowBlockNum = 0);
 	
 	/* Function: LCDCustomChar
-	 Write a custom character to screen X by Y. Y is fixed at 8
-	 Parameters 1 Example: 5 by 8 = || || = Char array unsigned char power[5] = {0xFF, 0xFF, 0x00, 0xFF, 0xFF}; 
-	 Parameters 2: Size of array,  sizeof(power)/sizeof(unsigned char)
-	 Parameter 3: Blank vertical line padding  padding 4 values
-	 0 = no padding 
-	 1 = Left hand side padding only
-	 2 = Right hand side padding only 
-	 3 = LHS + RHS
-	 
-	 Parameter 4: Is the data of character[] in flash memory or SRAM?
-	 true for flash, false for SRAM
-	 */
+	Write a custom character to screen X by Y. Y is fixed at 8
+	Parameters 1 Example: 5 by 8 = || || = Char array unsigned char power[5] = {0xFF, 0xFF, 0x00, 0xFF, 0xFF}; 
+	Parameters 2: Size of array, sizeof(power) / sizeof(unsigned char)
+	Parameter 3: Blank vertical line padding  padding 4 values
+	0 = no padding 
+	1 = Left hand side padding only
+	2 = Right hand side padding only 
+	3 = LHS + RHS
+	
+	Parameter 4: Is the data of character[] in flash memory or SRAM?
+	true for flash, false for SRAM
+	*/
 	void LCDCustomChar(const unsigned char character[], uint16_t numChars, uint8_t padding, bool ProgMemLocale );
 	
-	//Function LCDissleeping
+	// Function LCDisSleeping
 	// Returns  value of _sleep, if true LCD is in sleep mode.
 	bool LCDIsSleeping(void);
 	
   private:
 	
-	void LCDdraw_fonts_1TO6(char character, uint8_t font_width); //8 bit tall fonts
+	void LCDdraw_fonts_1TO6(char character, uint8_t font_width); // 8 bit tall fonts
 	void LCDdraw_fonts_7(char character); // 16 bit tall fonts
 	void LCDdraw_fonts_8TO9(char character); // 24 and 32 bit tall fonts
 	
