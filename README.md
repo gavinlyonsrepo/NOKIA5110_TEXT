@@ -30,11 +30,13 @@ basic graphics patterns can be created using custom characters, pixels, block pa
 * Functions: Detailed information on the functions can be found in comments in the library .h header file and a concise list of them in keywords.txt and they are 5 example files. 
 * Memory usage data results can be found in the extras folder. MemoryTestResults.md.
 
-* Tested on following MCUs.
+* Tested on following MCUs (The file testedMCU_pinouts.txt shows pins used in testing)
+ 
 1. Arduino  UNO & NANO v3
 2. ESP8266 
 3. ESP32 
-4. STM32 "blue pill"
+4. STM32 STM32F103C8T6  "blue pill"
+5. ATtiny85 
 
 Output
 ---------------------------------

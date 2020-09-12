@@ -1,0 +1,6 @@
+//Working pinouts used during testing 
+
+STM32 blue pill STM32F103C8T6 NOKIA5110_TEXT mylcd(PA0, PA1, PA2, PA3, PA4);
+ESP32 NOKIA5110_TEXT mylcd(23, 22, 21, 19, 18) or NOKIA5110_TEXT mylcd(23, 32, 33, 19, 18);
+ESP8266 NOKIA5110_TEXT mylcd(D2, D1, D6, D7, D5);
+ATtiny85 NOKIA5110_TEXT mylcd(PB0, PB1, PB2, PB3, PB4);
