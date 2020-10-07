@@ -33,9 +33,9 @@ basic graphics patterns can be created using custom characters, pixels, block pa
 * Tested on following MCUs (The file testedMCU_pinouts.txt shows pins used in testing)
  
 1. Arduino  UNO & NANO v3
-2. ESP8266 
-3. ESP32 
-4. STM32 STM32F103C8T6  "blue pill"
+2. ESP8266  
+3. ESP32 , [Example](https://github.com/gavinlyonsrepo/ESP_projects/tree/master/projects/NOKIA)
+4. STM32 STM32F103C8T6  "blue pill" , [Example](https://github.com/gavinlyonsrepo/STM32_projects/tree/master/projects/fmradio)
 5. ATtiny85 
 
 Output

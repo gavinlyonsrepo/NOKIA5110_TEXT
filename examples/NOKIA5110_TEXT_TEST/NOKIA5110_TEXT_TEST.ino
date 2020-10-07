@@ -11,10 +11,10 @@
 #define inverse  false
 #define contrast 0xB4 // default is 0xBF set in LCDinit, Try 0xB1 - 0xBF, if your display is too dark
 #define bias 0x12 // LCD bias mode 1:48: Try 0x12 or 0x13 or 0x14 usually
-#define FontNumber 1 //1-9, 1 is default,  Change define in NOKIA5110_TEXT.h if using non default
+#define FontNumber 1 // 1-9, 1 is default,  Change define in NOKIA5110_TEXT.h if using non default
 
 // LCD Nokia 5110 pinout left to right
-// RST / CE / DC / DIN / CLK / LIGHT / GND
+// RST / CE / DC / DIN / CLK / VCC/ LIGHT / GND
 
 #define RST 2 // Reset pin
 #define CE 3 // Chip enable
@@ -150,7 +150,7 @@ void Test5(void)
   delay(mydelay);
 }
 
-// TEST 6 Draw a vertical line in block 2 of one byte at column 3
+// TEST 6 Draw two vertical lines of one byte high
 void Test6(void)
 {
   mylcd.LCDgotoXY(3, 3);

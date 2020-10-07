@@ -50,7 +50,7 @@
 	#include "NOKIA5110_TEXT_FONT_SIX.h" // Tiny 3X8
 #endif
 #ifdef NOKIA5110_FONT_7
-	#include "NOKIA5110_TEXT_FONT_SEVEN.h" // Large 12 X 16 (no lowercase letters)
+	#include "NOKIA5110_TEXT_FONT_SEVEN.h" // Large 12 X 16 (NO LOWERCASE LETTERS)
 #endif
 #ifdef NOKIA5110_FONT_8
 	#include "NOKIA5110_TEXT_FONT_EIGHT.h" // Huge 16 X24 (numbers + . : only) 
@@ -70,8 +70,8 @@
 #define LCD_POWERDOWN    0x24 // LCD power off
 
 // Misc LCD Data 
-#define LCD_FONTNUMBER  0x01 // default Font number 1,  1 to 6 fonts
-#define LCD_ASCII_OFFSET 0x20 //0x20, ASCII character for Space, The font table starts with this character
+#define LCD_FONTNUMBER  0x01 // default Font number 1,  1 to 9 fonts
+#define LCD_ASCII_OFFSET 0x20 //0x20, ASCII character for Space
 #define LCD_ASCII_OFFSET_ZERO 0x2E // ASCII code for . is 0X2E (. / 0 1 etc)
 
 // The DC pin tells the LCD if sending a command or data
@@ -145,7 +145,7 @@ class NOKIA5110_TEXT {
 	void LCDClearBlock(uint8_t RowBlockNum = 0);
 	
 	/* Function: LCDFont
-	Passed a int to set between fonts , 1-6
+	Passed a int to set between fonts , 1-9
 	default font is 1, Font_two is 2. Font_three is 3 etc
 	*/
 	void LCDFont(uint8_t FontNumber);

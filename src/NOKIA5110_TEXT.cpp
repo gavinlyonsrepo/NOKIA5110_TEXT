@@ -46,7 +46,7 @@ void NOKIA5110_TEXT::LCDInit(bool Inverse, uint8_t Contrast,uint8_t Bias) {
 	LCDWrite(LCD_COMMAND, _bias); //LCD bias mode 1:48: Try 0x13 or 0x14
 	LCDWrite(LCD_COMMAND, LCD_FUNCTIONSET ); //We must send 0x20 before modifying the display control mode
 	if (_inverse  == false)
-		LCDWrite(LCD_COMMAND, LCD_DISPLAYCONTROL); //Set display control, normal mode. 0x0D for inverse
+		LCDWrite(LCD_COMMAND, LCD_DISPLAYCONTROL); //Set display control, normal mode. 
 	else
 		LCDWrite(LCD_COMMAND, LCD_DISPLAYCONTROL_INVERSE); //Set display control, normal mode. 0x0D for inverse
 }
@@ -236,6 +236,9 @@ void NOKIA5110_TEXT::LCDdraw_fonts_1TO6(char character, uint8_t font_width)
 
 void NOKIA5110_TEXT::LCDdraw_fonts_7(char character)
 {
+	// 0xAABB font 7, 16 bit high
+	// BB , top half of character
+	// AA , bot half of character
 	#ifdef NOKIA5110_FONT_7
 		uint16_t totalchar = 0;
 		uint8_t  topchar =0;
@@ -262,11 +265,11 @@ void NOKIA5110_TEXT::LCDdraw_fonts_7(char character)
 
 void NOKIA5110_TEXT::LCDdraw_fonts_8TO9(char character)
 {
-	// 0XAABBCCDD font 9 32 bit high,   0X00BBCCDD font 8  24 bit high
-	// DD DD	Upperbyte
-	// CC CC   upper middle
-	// BB  BB lower middle
-	// AA      lower byte
+	// 0xAABBCCDD font 9 32 bit high,   0x00BBCCDD font 8  24 bit high
+	// DD, DD	Upper quarter of character 
+	// CC, CC   upper middle
+	// BB,  BB  lower middle
+	// AA ,       lower quarter of character
 
 		uint32_t totaldata = 0;
 		uint8_t  topbyte =0;

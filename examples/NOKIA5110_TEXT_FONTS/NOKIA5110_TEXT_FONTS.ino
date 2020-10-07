@@ -17,7 +17,7 @@
 #include <NOKIA5110_TEXT.h>
 
 // LCD Nokia 5110 pinout left to right
-// RST / CE / DC / DIN / CLK / LIGHT / GND
+// RST / CE / DC / DIN / CLK / VCC / LIGHT / GND
 
 #define RST 2 // Reset pin
 #define CE 3 // Chip enable
