@@ -1,5 +1,5 @@
 // NOKIA5110_BITMAP.ino
-// Test file for NOKIA5110_TEXT showing how to fill entire screen with a bitmap 84 * 48 = 504 bytes
+// Test file for NOKIA5110_TEXT showing how to fill entire screen with a bitmap 84 * 48 = 504 bytes,software SPI
 // URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
 
 // Include the library

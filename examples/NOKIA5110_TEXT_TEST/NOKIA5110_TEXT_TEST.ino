@@ -1,6 +1,6 @@
 // Example file name : NOKIA5110_TEXT_TEST.ino
 // Description:
-// Test file for NOKIA5110_TEXT showing use of font one, sleep mode and clear line/screen, pixel tests,
+// Test file for NOKIA5110_TEXT showing use of font one, sleep mode and clear line/screen, pixel tests, Software SPI.
 // Fill, Fill block, custom character, Fonts and Bitmap.
 // URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
 

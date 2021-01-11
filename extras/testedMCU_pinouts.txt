@@ -1,6 +1,44 @@
-//Working pinouts used during testing 
+//  Working pinouts used during testing software SPI
+ 
+Arduino UNO
+NOKIA5110_TEXT mylcd(2, 3, 4, 5, 6);
 
-STM32 blue pill STM32F103C8T6 NOKIA5110_TEXT mylcd(PA0, PA1, PA2, PA3, PA4);
-ESP32 NOKIA5110_TEXT mylcd(23, 22, 21, 19, 18) or NOKIA5110_TEXT mylcd(23, 32, 33, 19, 18);
-ESP8266 NOKIA5110_TEXT mylcd(D2, D1, D6, D7, D5);
-ATtiny85 NOKIA5110_TEXT mylcd(PB0, PB1, PB2, PB3, PB4);
+STM32 blue pill STM32F103C8T6 
+NOKIA5110_TEXT mylcd(PA0, PA1, PA2, PA3, PA4);
+
+ESP32 
+NOKIA5110_TEXT mylcd(23, 22, 21, 19, 18) or NOKIA5110_TEXT mylcd(23, 32, 33, 19, 18);
+
+ESP8266 
+NOKIA5110_TEXT mylcd(D2, D1, D6, D7, D5);
+
+ATtiny85 
+NOKIA5110_TEXT mylcd(PB0, PB1, PB2, PB3, PB4);
+
+
+//******************************************************
+
+// Working pinouts used during testing hardware SPI 
+
+Arduino UNO 
+#define RST 2
+#define CE 3
+#define DC 4
+//DIN hardware SPI (UNO 11)  MOSI
+//CLK hardware SPI (UNO 13)   SCK
+NOKIA5110_TEXT mylcd(RST, CE, DC);
+
+ESP8266 
+// SCK = D5  HSCLK
+// SDA = D7 HMosi
+NOKIA5110_TEXT mylcd(D2, D1, D6);
+
+ESP32 
+// SCK =  V_SPI_CLK D18 
+// SDA = V_SPI_D D23 
+NOKIA5110_TEXT mylcd(4, 27, 15); 
+
+STM32 blue pill STM32F103C8T6 
+// SCK =  PA5 SCK1 SCK
+// SDA = PA7 MOSI1 SDA
+NOKIA5110_TEXT  mylcd(PA0, PA1, PA2); 

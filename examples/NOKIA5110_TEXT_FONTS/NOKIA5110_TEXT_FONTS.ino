@@ -16,7 +16,7 @@
 // Include the library.
 #include <NOKIA5110_TEXT.h>
 
-// LCD Nokia 5110 pinout left to right
+// LCD Nokia 5110 pinout left to right , software SPI
 // RST / CE / DC / DIN / CLK / VCC / LIGHT / GND
 
 #define RST 2 // Reset pin
@@ -55,8 +55,8 @@ void setup() {
 void loop() {
   /*
     TEST 1 font 1-6, X by 8 fonts
-    TEST 2 font 7, 16 by 12 font
-    TEST 3 font 8, 24 by 16 font
+    TEST 2 font 7, 12 by 16 font
+    TEST 3 font 8, 16 by 24  font
     TEST 4 font 9, 16 by 32 font
   */
 
@@ -133,7 +133,7 @@ void Test3(void)
 void Test4(void)
 {
   mylcd.LCDClear(0x00);
-  mylcd.LCDFont(9);  // font 8 this font takes 4 blocks
+  mylcd.LCDFont(9);  // font 9, this font takes 4 blocks
   mylcd.LCDgotoXY(0, 1);
   mylcd.LCDString("14.23");
   delay(mydelay5);

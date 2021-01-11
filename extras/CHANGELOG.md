@@ -37,3 +37,5 @@
 	* Changed function header of "LCDCustomChar()" so it complies for ESP32
 	* Tested on new boards : ESP32, ESP8266 and STM32 "blue pill" , It Works!!
 	
+* Version 2.2.0  Jan 2021
+	* Hardware SPI option added. 

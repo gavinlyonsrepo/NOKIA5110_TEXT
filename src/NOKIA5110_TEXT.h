@@ -14,6 +14,7 @@
   #include "WProgram.h"
 #endif
 
+
 // ********************************************
 // ****** FONT DEFINE SECTION ****** 
 // Comment in the fonts YOU want, X_1 is default. See comments just below in indef section for font name.
@@ -59,6 +60,20 @@
 	#include "NOKIA5110_TEXT_FONT_NINE.h" // Mega 16 X 32 (numbers + . : / only)
 #endif
 
+// **********************************************
+// ******* SPI HARDWARE SECTION ************
+//Comment this define(SPIHW_ON) in for hardware SPI , software SPI is default
+//#define SPIHW_ON 
+
+#ifdef SPIHW_ON 
+	#include <SPI.h>
+	#define SPI_FREQ 8000000 // Mhz
+	//#define SPI_FREQ 1000000 // Mhz, 
+#endif
+// ****** END OF SPI HARDWARE SECTION ****  
+// **********************************************
+
+
 // LCD Commands PCD8544_
 #define LCD_COMMAND_MODE 0x21  // FUNCTIONSET + extended instruction
 #define LCD_CONTRAST     0xBF  // Set LCD VOP Contrast Try 0xB1 or 0xBF if is too dark range = ((0x00-0x7F) |0x80)
@@ -68,6 +83,7 @@
 #define LCD_DISPLAYCONTROL 0x0C // Set display control, normal mode. 0x0D for inverse
 #define LCD_DISPLAYCONTROL_INVERSE 0x0D // Set display control, inverse mode. 0x0D for inverse
 #define LCD_POWERDOWN    0x24 // LCD power off
+#define LCD_RESET_DELAY 50 // mS
 
 // Misc LCD Data 
 #define LCD_FONTNUMBER  0x01 // default Font number 1,  1 to 9 fonts
@@ -111,11 +127,16 @@ class NOKIA5110_TEXT {
 
   public:
    
-    
+    // Software SPI default
     // Constructor of the class object from left to right pin 1-5(LCD)
     // RST pin 1, CE pin 2, DC pin 3, DIN pin 4, CLK pin 5 
-	 NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK);
+	 NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, int8_t LCD_DIN, int8_t LCD_CLK);
 	
+	// HARDWARE SPI 
+	 // Constructor of the class object from left to right pin 1-3(LCD)
+	// RST pin 1, CE pin 2, DC pin 3
+	 NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC);
+	 
 	// Methods
 	
 	/*Function : LCDinit
@@ -232,11 +253,16 @@ class NOKIA5110_TEXT {
 	void LCDdraw_fonts_7(char character); // 16 bit tall fonts
 	void LCDdraw_fonts_8TO9(char character); // 24 and 32 bit tall fonts
 	
+	// Function isHardwareSPI
+	// Desc: Checks if software SPI is on
+	// Returns: true 1 if hardware SPi on , false 0 for software spi
+	bool isHardwareSPI(void);
+	
 	uint8_t _LCD_RST;
 	uint8_t _LCD_CE;
 	uint8_t _LCD_DC;
-	uint8_t _LCD_DIN;
-	uint8_t  _LCD_CLK;
+	int8_t _LCD_DIN; // Software SPI only
+	int8_t  _LCD_CLK; // Software SPI only
 
 	uint8_t  _contrast = LCD_CONTRAST ; 
 	uint8_t  _bias = LCD_BIAS ; 

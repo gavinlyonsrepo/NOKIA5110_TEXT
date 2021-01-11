@@ -12,8 +12,8 @@
 
 #include "NOKIA5110_TEXT.h"
 
-
-NOKIA5110_TEXT::NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, uint8_t LCD_DIN, uint8_t LCD_CLK) {
+// Software SPI 
+NOKIA5110_TEXT::NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, int8_t LCD_DIN, int8_t LCD_CLK) {
 	
 	_LCD_RST = LCD_RST;
 	_LCD_CE = LCD_CE;
@@ -23,22 +23,56 @@ NOKIA5110_TEXT::NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC, 
 	
 }
 
+// Hardware SPI
+NOKIA5110_TEXT::NOKIA5110_TEXT(uint8_t LCD_RST, uint8_t LCD_CE, uint8_t LCD_DC) {
+	
+	_LCD_RST = LCD_RST;
+	_LCD_CE = LCD_CE;
+	_LCD_DC  = LCD_DC;
+	_LCD_DIN  = -1;  // -1 for din  specify using hardware SPI
+	_LCD_CLK  = -1; // -1 for  sclk specify using hardware SPI
+	
+}
+
 void NOKIA5110_TEXT::LCDInit(bool Inverse, uint8_t Contrast,uint8_t Bias) {
 	
-	pinMode(_LCD_RST,OUTPUT);
-	pinMode(_LCD_CE,OUTPUT);
-	pinMode(_LCD_DC,OUTPUT);
-	pinMode(_LCD_DIN,OUTPUT);
-	pinMode(_LCD_CLK,OUTPUT);
 	_inverse = Inverse;
 	_bias = Bias;
 	_contrast = Contrast;
-	//Configure control pins
+
+   if (isHardwareSPI()) 
+  {
+#ifdef SPIHW_ON 
+   SPI.begin();
+   //There is a pre-defined macro SPI_HAS_TRANSACTION in SPI library for checking whether the firmware //of the Arduino board supports SPI.beginTransaction().
+#ifdef SPI_HAS_TRANSACTION
+	{
+	//SPI.setClockDivider(SPI_CLOCK_DIV8);
+	SPI.beginTransaction(SPISettings(SPI_FREQ, MSBFIRST, SPI_MODE0));
+   }
+#else
+	{
+		//STM32 blue pill uses this 
+		SPI.setClockDivider(SPI_CLOCK_DIV8); // 72/8 = 9Mhz
+	  }
+#endif
+#endif
+  }else
+  {
+	 // Set software SPI specific pin outputs.
+	pinMode(_LCD_DIN, OUTPUT);
+	pinMode(_LCD_CLK, OUTPUT);
 	_LCD_DIN_SetLow;
 	_LCD_CLK_SetLow;
+
+  }
+	pinMode(_LCD_RST,OUTPUT);
+	pinMode(_LCD_CE,OUTPUT);
+	pinMode(_LCD_DC,OUTPUT);
 	_LCD_DC_SetLow;
 	//Reset the LCD to a known state
 	_LCD_RST_SetLow;
+	delay(LCD_RESET_DELAY);
 	_LCD_RST_SetHigh;
 	LCDWrite(LCD_COMMAND, LCD_COMMAND_MODE); //Tell LCD that extended commands follow
 	LCDWrite(LCD_COMMAND, _contrast); //Set LCD Vop (Contrast): Try 0xB1 or 0xBF if your display is too dark
@@ -88,15 +122,23 @@ void NOKIA5110_TEXT::LCDWrite(unsigned char data_or_command, unsigned char data)
 	//Tell the LCD that we are writing either to data or a command
 	//Send the data
 	_LCD_CE_SetLow;
-	for(i=0;i<8;i++)
+	  if (isHardwareSPI()) 
 	{
-		_LCD_DIN_SetLow;
-		if(d&0x80)_LCD_DIN_SetHigh; // b1000000 Mask with 0 & all zeros out.
-		_LCD_CLK_SetHigh;
-		d<<=1;
-		_LCD_CLK_SetLow;
+#ifdef SPIHW_ON
+		(void)SPI.transfer(data); // Hardware SPI
+#endif
+	}else
+	{
+		for(i=0;i<8;i++)
+		{
+			_LCD_DIN_SetLow;
+			if(d&0x80)_LCD_DIN_SetHigh; // b1000000 Mask with 0 & all zeros out.
+			_LCD_CLK_SetHigh;
+			d<<=1;
+			_LCD_CLK_SetLow;
+		}
 	}
-   _LCD_CE_SetHigh;
+	_LCD_CE_SetHigh;
 }
 
 void NOKIA5110_TEXT::LCDCharacter(char character) 
@@ -357,5 +399,10 @@ void NOKIA5110_TEXT::LCDdraw_fonts_8TO9(char character)
 }
 
 bool NOKIA5110_TEXT::LCDIsSleeping() { return _sleep;}
+
+bool NOKIA5110_TEXT::isHardwareSPI() 
+{
+  return (_LCD_DIN == -1 && _LCD_CLK == -1);
+}
  
 /* =========== EOF ===========*/

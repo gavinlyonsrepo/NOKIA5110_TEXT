@@ -24,13 +24,14 @@ Overview
 7. Custom characters and bitmap supported
 8. No graphics buffer to reduce memory footprint but 
 basic graphics patterns can be created using custom characters, pixels, block patterns , lines.
+ 9. Hardware or software SPI interface.
  
 * Author: Gavin Lyons
 * Arduino IDE: 1.8.10
-* Functions: Detailed information on the functions can be found in comments in the library .h header file and a concise list of them in keywords.txt and they are 5 example files. 
+* Functions: Detailed information on the functions can be found in comments in the library .h header file and a concise list of them in keywords.txt and they are 6 example files. 
 * Memory usage data results can be found in the extras folder. MemoryTestResults.md.
 
-* Tested on following MCUs (The file testedMCU_pinouts.txt shows pins used in testing)
+* Tested on following MCUs (The file testedMCU_pinouts.txt in extras folder, shows pins used in testing)
  
 1. Arduino  UNO & NANO v3
 2. ESP8266  
@@ -45,9 +46,9 @@ Output Screenshots, From left to right top to bottom.
 
 1. Custom characters + fill patterns 
 2. Font 7 "Large"
-3. Half screen bitmap + Font 7 "large"
+3. Half screen bitmap
 4. Font 9 "Mega"  
-5. Output showing first 6 (X by 8) fonts, #1-6, one font in each row block:
+5. First 6  fonts (byte high), num 1-6, one font in each row block
 6. Font 8 "Huge" 
 
 ![ font pic 1 ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA_FONT1.jpg)
@@ -72,11 +73,7 @@ Features
 The Nokia 5110 is a basic LCD screen for lots of applications. 
 It was originally intended to be used as a mobile phone screen. 
 It uses the PCD8544 controller, which is the same used in the Nokia 3310 LCD. 
-The PCD8544 is a low power CMOS LCD controller/driver, designed to drive a graphic display of 48 rows and 84 columns.
-The PCD8544 interfaces to microcontrollers through a serial bus interface(SPI).
-The library uses bit-banging software SPI rather than importing SPI libraries.
-The library has 11 code files (NOKIA5110_TEXT.cpp  NOKIA5110_TEXT.h and 9 font header files).
-In addition the library has 5 examples files. 
+The PCD8544 is a low power CMOS LCD controller/driver, designed to drive a graphic display of 48 rows and 84 columns. The library has 11 code files (NOKIA5110_TEXT.cpp  NOKIA5110_TEXT.h and 9 font header files). In addition there are  6 examples files. 
 
 The screen is 84 X 48 pixels. The X-Axis has 84 columns.
 The Y_Axis(rows) the 48 pixels are divided into 6 row blocks. 
@@ -92,15 +89,30 @@ Each block containing one byte of pixels. 6 * 8 = 48.
 | Block 5 | 40-47 |
 
 GPIO function on Arduino, 5 Nokia 5110 LCD lines SPI bus.
-The example files use Pin D2-RST <.....> D6-CLK.
+The example files use Pin D2-RST <.....> D6-CLK for UNO. 
 
-| Arduino    | Nokia 5110 LCD |
+| MCU   | Nokia 5110 LCD |
 | ------ | ------ |
 | Digital GPIO | LCD_CLK Pin 5 clock in |
 | Digital GPIO | LCD_DIN Pin 4 data in |
 | Digital GPIO | LCD_DC Pin 3 data/command|
 | Digital GPIO | LCD_CE Pin 2 chip enable |
 | Digital GPIO | LCD_RST Pin 1 reset|
+
+**SPI interface bus**
+
+The PCD8544 interfaces to microcontrollers through a serial bus interface(SPI).
+The library originally and by default  used bit-banging software SPI. 
+As of Version 2.2 it can support hardware SPI as well.
+Hardware SPI is much faster but two of the pins are fixed, is more difficult to port to new MCU's
+and includes the arduino SPI library. 
+The file testedMCU_pinouts.txt show in extra folder shows pins used in testing of various MCU's
+.
+
+To switch to from the default software SPI to Hardware SPI, two steps are required:
+
+1. In file NOKIA5110_TEXT.h , in SPI HARDWARE SECTION, comment in: define SPIHW_ON.
+2. Use the constructor with 3 Parameters not 5. There is hardware SPI example file called NOKIA5110_HIW_HWSPI for UNO which shows this.
 
 Pinout of a Nokia 5110 LCD.
 
@@ -138,5 +150,5 @@ Total characters = (Screen Width/Character width  + padding) X (Screen height/Ch
 | 5 | Wide | 8x8 | (84/8+2) * (48/8) = 48 | no lowercase letters |
 | 6 | Tiny | 3x8 | (84/3+2) * (48/8) = 96  | ------ |
 | 7 | Large | 12x16 | (84/12) * (48/16) = 21 |  no lowercase letters |
-| 8 | Huge | 16x24 | (84/16) * (48/24) = 10  | Numbers + : . only |
-| 9 | Mega | 16x32 | (84/16) * (48/32) = 5  | Numbers + : . only |
+| 8 | Huge | 16x24 | (84/16) * (48/24) = 10  | Numbers + : . only, use / for space |
+| 9 | Mega | 16x32 | (84/16) * (48/32) = 5  | Numbers + : . only, use / for space |
