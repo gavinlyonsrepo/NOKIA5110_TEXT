@@ -8,6 +8,7 @@ Table of contents
   * [Installation](#installation)
   * [Features](#features)
   * [Fonts](#fonts)
+  * [Ports](#ports)
   
 Overview
 --------------------
@@ -109,7 +110,7 @@ and includes the arduino SPI library.
 The file testedMCU_pinouts.txt show in extra folder shows pins used in testing of various MCU's
 .
 
-To switch to from the default software SPI to Hardware SPI, two steps are required:
+To switch from the default software SPI to Hardware SPI, two steps are required:
 
 1. In file NOKIA5110_TEXT.h , in SPI HARDWARE SECTION, comment in: define SPIHW_ON.
 2. Use the constructor with 3 Parameters not 5. There is hardware SPI example file called NOKIA5110_HIW_HWSPI for UNO which shows this.
@@ -152,3 +153,11 @@ Total characters = (Screen Width/Character width  + padding) X (Screen height/Ch
 | 7 | Large | 12x16 | (84/12) * (48/16) = 21 |  no lowercase letters |
 | 8 | Huge | 16x24 | (84/16) * (48/24) = 10  | Numbers + : . only, use / for space |
 | 9 | Mega | 16x32 | (84/16) * (48/32) = 5  | Numbers + : . only, use / for space |
+
+Ports
+-------------------------
+
+1. STM32 library STM32F303K8T6 Nucleo-32 C [Link.](https://github.com/gavinlyonsrepo/STM32_projects/tree/master/projects/nokiatext)
+
+2. PIC Xc8 C   [Link.](https://github.com/gavinlyonsrepo/pic_18F47K42_projects/tree/master/projects/nokiatext)
+
