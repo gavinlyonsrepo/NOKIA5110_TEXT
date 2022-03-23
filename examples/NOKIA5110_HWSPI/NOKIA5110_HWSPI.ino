@@ -24,16 +24,15 @@ NOKIA5110_TEXT mylcd(RST, CE, DC);
 #define inverse  false // set to true to invert display pixel color
 #define contrast 0xB2 // default is 0xBF set in LCDinit, Try 0xB1 <-> 0xBF if your display is too dark
 #define bias 0x13 // LCD bias mode 1:48: Try 0x12 or 0x13 or 0x14
-#define FontNumber 1 // 1-9, 1 is default, Comment in defines at top of NOKIA5110_TEXT.h if using non default
 
 void setup() {
-  delay(500);
+  delay(100);
   mylcd.LCDInit(inverse, contrast, bias); // init  the lCD
   mylcd.LCDClear(0x00); // Clear whole screen
 }
 
 void loop() {
-  mylcd.LCDFont(FontNumber); // Set the font
+  mylcd.LCDFont(LCDFont_Default); // Set the font
   mylcd.LCDgotoXY(0, 0); // (go to (X , Y) (0-84 columns, 0-5 blocks) top left corner
   mylcd.LCDString("HELLO WORLD"); // print
   mylcd.LCDgotoXY(0, 2); 

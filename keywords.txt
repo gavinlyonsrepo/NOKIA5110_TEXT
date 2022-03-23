@@ -3,7 +3,7 @@
 # -----------------------------------------
 
 # Datatypes (such as objects)
- NOKIA5110_TEXT	KEYWORD1
+NOKIA5110_TEXT	KEYWORD1
 
 #Methods / functions
 
@@ -16,7 +16,7 @@ LCDenableSleep	KEYWORD2
 LCDdisableSleep	KEYWORD2
 LCDClearBlock	KEYWORD2
 LCDCharacter	KEYWORD2
-LCDWrite	KEYWORD2
+LCDSPIWrite	KEYWORD2
 LCDFont	KEYWORD2
 LCDSetPixel	KEYWORD2
 LCDCustomChar	KEYWORD2
@@ -24,5 +24,16 @@ LCDFillBlock	KEYWORD2
 LCDIsSleeping	KEYWORD2
 
 # Constants
-
-
+LCDFont_Default	LITERAL1
+LCDFont_Thick	LITERAL1
+LCDFont_HomeSpun	LITERAL1
+LCDFont_Seven_Seg	LITERAL1
+LCDFont_Wide	LITERAL1
+LCDFont_Tiny	LITERAL1
+LCDFont_Large	LITERAL1
+LCDFont_Huge	LITERAL1
+LCDFont_Mega	LITERAL1
+LCDPadding_None	LITERAL1
+LCDPadding_LHS	LITERAL1
+LCDPadding_RHS	LITERAL1
+LCDPadding_Both	LITERAL1

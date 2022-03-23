@@ -3,14 +3,10 @@
 * version 1.0.0 March 2019
 	* first release
 
-* Version 1.0.1 May 2019
-	* Keywords.txt modified for tabs instead of spaces as per "per1234" 
-	* pull request on github
-
 * Version 1.1.0 Dec 2019
 	* Added two new examples.
 	* Added inverse and bias control.
-	* Added optional Aurebesh font.
+	* Added optional font 3
 	
 * version 1.2.0 Jan 2020
 	* Added "Font two"
@@ -35,7 +31,11 @@
 	* Issue 1 on github closed , public access to "sleep" member granted via new function LCDisSleeping()
 	* Added font 9 "Mega" 16*32, takes 4 row blocks, 5 characters max. 
 	* Changed function header of "LCDCustomChar()" so it complies for ESP32
-	* Tested on new boards : ESP32, ESP8266 and STM32 "blue pill" , It Works!!
+	* Tested on new boards : ESP32, ESP8266 and STM32 "blue pill" , It Works!
 	
 * Version 2.2.0  Jan 2021
 	* Hardware SPI option added. 
+	
+* Version 2.3.0 March 2022
+	* Replaced font 3 Aurubesh with homespun
+	* Added print class for numerical data types.
