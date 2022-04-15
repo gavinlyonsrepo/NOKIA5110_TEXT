@@ -40,7 +40,7 @@ Tested
 1. Arduino  UNO & NANO v3
 2. ESP8266  
 3. ESP32 , [Example](https://github.com/gavinlyonsrepo/ESP_projects/tree/master/projects/NOKIA)
-4. STM32 STM32F103C8T6  "blue pill" , [Example](https://github.com/gavinlyonsrepo/STM32_projects/tree/master/projects/fmradio)
+4. STM32 STM32F103C8T6  "blue pill" 
 5. ATtiny85 
 
 Output
