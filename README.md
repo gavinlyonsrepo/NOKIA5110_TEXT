@@ -11,7 +11,6 @@ Table of contents
   * [Installation](#installation)
   * [Hardware](#hardware)
   * [Software](#software)
-  * [Fonts](#fonts)
   * [Ports](#ports)
   
 Overview
