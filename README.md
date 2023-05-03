@@ -1,6 +1,9 @@
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976)
+[![Website](https://img.shields.io/badge/Website-Link-blue.svg)](https://gavinlyonsrepo.github.io/)  [![Rss](https://img.shields.io/badge/Subscribe-RSS-yellow.svg)](https://gavinlyonsrepo.github.io//feed.xml)  [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/whitelight976)
 
 ![ pcb ](https://github.com/gavinlyonsrepo/NOKIA5110_TEXT/blob/master/extras/image/NOKIA.jpg)
+
+
+# NOKIA5110_TEXT
 
 Table of contents
 ---------------------------
@@ -11,7 +14,6 @@ Table of contents
   * [Installation](#installation)
   * [Hardware](#hardware)
   * [Software](#software)
-  * [Ports](#ports)
   
 Overview
 --------------------
@@ -40,7 +42,7 @@ Tested
  
 1. Arduino  UNO & NANO v3
 2. ESP8266  
-3. ESP32 , [Example](https://github.com/gavinlyonsrepo/ESP_projects/tree/master/projects/NOKIA)
+3. ESP32 
 4. STM32 STM32F103C8T6  "blue pill" 
 5. ATtiny85 
 
@@ -66,12 +68,7 @@ Installation
 ------------------------------
 
 The library is included in the official Arduino library manger and the optimum way to install it 
-is using the library manager which can be opened by the *manage libraries* option in Arduino IDE. 
-Search "Nokia" in search bar of library manager to find it.
-
-See link below for instruction for this and for the other methods too.
-
-[Installing Additional Arduino Libraries guide](https://www.arduino.cc/en/Guide/Libraries)
+is using the library manager.
 
 Hardware
 -------------------------
@@ -166,11 +163,4 @@ There is a print method which utilises the arduino print.h
 to print data types other than character strings
 see example file NOKIA5110_TESTS. 
 The user can pass flash-memory based strings to print() by wrapping them with F() macro. 
-
-Ports
--------------------------
-
-1. STM32 library STM32F303K8T6 Nucleo-32 C [Link.](https://github.com/gavinlyonsrepo/STM32_projects/tree/master/projects/nokiatext)
-
-2. PIC Xc8 C   [Link.](https://github.com/gavinlyonsrepo/pic_18F47K42_projects/tree/master/projects/nokiatext)
 
