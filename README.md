@@ -21,8 +21,8 @@ Overview
 * Title : Library for Nokia 5110 LCD (PCD8544 controller) for the Arduino eco-system
 * Description : 
 
-1. Arduino eco system library.      
-2. Inverse, Bias and contrast control. 
+1. Arduino eco system library, C++.      
+2. Inverse, bias and contrast control. 
 3. ASCII strings and character text display.
 4. Nine different ASCII text fonts. 
 5. Sleep mode.
@@ -44,7 +44,8 @@ Tested
 2. ESP8266  
 3. ESP32 
 4. STM32 STM32F103C8T6  "blue pill" 
-5. ATtiny85 
+5. ATtiny85
+6. Arduino UNO R4 minima
 
 Output
 ---------------------------------

@@ -22,8 +22,8 @@
 #define CLK 6 // Serial clock
 
 // The constructor object, create an instance of the object
-//NOKIA5110_TEXT mylcd(RST, CE, DC, DIN, CLK);
-NOKIA5110_TEXT mylcd(23, 22, 21, 19, 18);
+NOKIA5110_TEXT mylcd(RST, CE, DC, DIN, CLK);
+
 // TEST delays setup
 #define mydelay1  1000
 #define mydelay2  2000
