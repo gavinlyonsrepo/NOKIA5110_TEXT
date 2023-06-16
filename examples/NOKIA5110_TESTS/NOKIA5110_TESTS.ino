@@ -1,8 +1,19 @@
-// Example file name : NOKIA5110_TEXT_TEST.ino
-// Description:
-// Test file for NOKIA5110_TEXT showing use of font one, print method, sleep mode and clear line/screen, pixel tests, Software SPI.
-// Fill, Fill block, custom character
-// URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
+/*!
+	@file NOKIA5110_TESTS.ino
+	@brief Test file for NOKIA5110_TEXT showing various functions, software SPI
+	@details URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
+	@test
+		-# TEST 10 Print function, test  print function to print data types.
+		-# TEST 11 Writing text to blocks
+		-# TEST 12 Clearing by blocks
+		-# TEST 13 Sleep mode
+		-# TEST 14 Draw some pixel
+		-# TEST 15 Draw a horizontal line with SetPixel across screen at row 10
+		-# TEST 16 Draw a vertical line in block 2 of one byte at column 3
+		-# TEST 17 Fill Screen with a pattern
+		-# TEST 18 Fill block with a pattern
+		-# TEST 19 Custom Characters display
+*/
 
 // Include the library
 #include <NOKIA5110_TEXT.h>
@@ -37,33 +48,20 @@ void setup() {
 }
 
 void loop() {
-
-  /* TESTS
-    0. TEST 0 Print function, test  print function to print data types.
-    1. TEST 1 Writing text to blocks
-    2. TEST 2 Clearing by blocks
-    3. TEST 3 Sleep mode
-    4. TEST 4 Draw some pixel
-    5. TEST 5 Draw a horizontal line with SetPixel across screen at row 10
-    6. TEST 6 Draw a vertical line in block 2 of one byte at column 3
-    7. TEST 7 Fill Screen with a pattern
-    8. TEST 8 Fill block with a pattern
-    9. TEST 9 Custom Characters display
-  */
-  Test0();
-  Test1();
-  Test2();
-  Test3();
-  Test4();
-  Test5();
-  Test6();
-  Test7();
-  Test8();
-  Test9();
+  Test10();
+  Test11();
+  Test12();
+  Test13();
+  Test14();
+  Test15();
+  Test16();
+  Test17();
+  Test18();
+  Test19();
 }
 
-//  0. TEST 0 Print function
-void Test0(void)
+//  TEST 10 Print function
+void Test10(void)
 {
   int8_t numNeg = -117;
   uint8_t numPos = 47;
@@ -107,8 +105,8 @@ void Test0(void)
 }
 
 
-// TEST 1 Writing text to blocks
-void Test1(void)
+// TEST 11 Writing text to blocks
+void Test11(void)
 {
   mylcd.LCDgotoXY(0, 0); // (go to (X , Y) (0-84 columns, 0-5 blocks)
   mylcd.LCDString("Block 0"); // print to block 0 (0-5 blocks or row bytes)
@@ -131,8 +129,8 @@ void Test1(void)
 }
 
 
-// TEST 2 Clearing by blocks
-void Test2(void)
+// TEST 12 Clearing by blocks
+void Test12(void)
 {
   mylcd.LCDClearBlock(0);  // clear line/block 0
   delay(mydelay1);
@@ -140,8 +138,8 @@ void Test2(void)
   delay(mydelay2);
 }
 
-// TEST 3 sleep mode
-void Test3(void)
+// TEST 13 sleep mode
+void Test13(void)
 {
   mylcd.LCDClear(0x00);
 
@@ -158,8 +156,8 @@ void Test3(void)
   delay(mydelay2);
 }
 
-// TEST 4 Draw some pixel
-void Test4(void)
+// TEST 14 Draw some pixel
+void Test14(void)
 {
   mylcd.LCDClear(0x00);
 
@@ -173,8 +171,8 @@ void Test4(void)
     delay(10);
   }
 }
-// TEST 5 Draw a horizontal line with SetPixel across screen
-void Test5(void)
+// TEST 15 Draw a horizontal line with SetPixel across screen
+void Test15(void)
 {
   mylcd.LCDClear(0x00);
   mylcd.LCDgotoXY(0, 0); // (go to (X , Y) (0-84 columns, 0-5 blocks)
@@ -188,8 +186,8 @@ void Test5(void)
   delay(mydelay2);
 }
 
-// TEST 6 Draw two vertical lines of one byte high
-void Test6(void)
+// TEST 16 Draw two vertical lines of one byte high
+void Test16(void)
 {
   mylcd.LCDgotoXY(3, 3);
   mylcd.LCDSPIWrite(LCD_DATA, 0xFF);
@@ -198,8 +196,8 @@ void Test6(void)
   delay(mydelay2);
 }
 
-// TEST 7 Fill whole with Screen with pattern
-void Test7(void)
+// TEST 17 Fill whole with Screen with pattern
+void Test17(void)
 {
   mylcd.LCDClear(0x00);
   mylcd.LCDgotoXY(0, 0);
@@ -210,8 +208,8 @@ void Test7(void)
   delay(mydelay5);
 }
 
-// Test 8 Fill block
-void Test8(void)
+// Test 18 Fill block
+void Test18(void)
 {
   mylcd.LCDClear(0X00);
   mylcd.LCDgotoXY(0, 0);
@@ -222,8 +220,8 @@ void Test8(void)
   delay(mydelay5);
 }
 
-//Test 9 Custom characters
-void Test9(void)
+// Test 19 Custom characters
+void Test19(void)
 {
   // Custom Characters for  TEST 9 Custom Character. data vertical addressed 
   const unsigned char power[13] = {0xff, 0xe7, 0xc3, 0x99, 0xa5, 0xad, 0xad, 0xa5, 0x99, 0xc3, 0xe7, 0xff}; //power icon

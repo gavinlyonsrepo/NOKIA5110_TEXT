@@ -1,6 +1,10 @@
-// NOKIA5110_HELLOWORLD.ino
-// Test file for NOKIA5110_TEXT showing use most basic use case "HELLO WORLD" at 0,0 with font number one, software SPI.(defaults) for arduino UNO
-// URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
+/*!
+	@file NOKIA5110_HELLOWORLD.ino
+	@brief Test file for NOKIA5110_TEXT showing use most basic use case "HELLO WORLD" at 0,0 with font number one, software SPI.(defaults) for arduino UNO
+	@details URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
+	@test
+		-# Test 0 Display Hello world  
+*/
 
 // Include the library
 #include <NOKIA5110_TEXT.h>

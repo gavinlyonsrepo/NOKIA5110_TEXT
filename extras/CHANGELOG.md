@@ -39,3 +39,7 @@
 * Version 2.3.0 March 2022
 	* Replaced font 3 Aurubesh with homespun
 	* Added print class for numerical data types.
+
+* Version 2.4.0 June 2023
+	* Added Doxygen style comments to make API
+

@@ -1,6 +1,11 @@
-// NOKIA5110_BITMAP.ino
-// Test file for NOKIA5110_TEXT showing how to fill entire screen with a bitmap 84 * 48 = 504 bytes,software SPI
-// URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
+/*!
+	@file NOKIA5110_BITMAP.ino
+	@brief Test file for NOKIA5110_TEXT showing how to fill display bitmap's, software SPI
+	@details URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
+	@test
+		-# Test 31 bitmap 84x48px Full Screen  
+		-# Test 32 bitmap 84x24px half screen 
+*/
 
 // Include the library
 #include <NOKIA5110_TEXT.h>
@@ -21,7 +26,7 @@ NOKIA5110_TEXT mylcd(RST, CE, DC, DIN, CLK);
 #define contrast 0xB2 // default is 0xBF set in LCDinit, Try 0xB1 - 0xBF if your display is too dark/dim
 #define bias 0x13 // LCD bias mode 1:48: Try 0x12 , 0x13 or 0x14
 
-// 'image1 , snake splashscreen', 84x48px Full Screen data vertical addressed
+/**< 'image1 , snake splashscreen', 84x48px Full Screen data vertical addressed */
 const PROGMEM  unsigned char mybitmap[504] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0xe0, 0xf0, 0xf8, 0xf8, 0x7c,
   0x7c, 0x20, 0x00, 0xe0, 0xe0, 0xf0, 0xf0, 0xf0, 0x80, 0x00, 0x00, 0xe0, 0xf8, 0xf8, 0xfc, 0x38,
@@ -57,7 +62,7 @@ const PROGMEM  unsigned char mybitmap[504] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-// 'image2 lighting symbols', 84x24px half screen, data vertical addressed
+/**<  'image2 lighting symbols', 84x24px half screen, data vertical addressed */
 const PROGMEM unsigned char mybitmap2[252] = {
   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
   0x7f, 0x7f, 0x3f, 0x3f, 0x1f, 0x0f, 0x0f, 0x07, 0x87, 0xc3, 0xe3, 0xf9, 0xfd, 0xff, 0xff, 0xff,

@@ -1,11 +1,22 @@
+
+
+
 // NOKIA5110_HW_SPI.ino
 // HARDWARE SPI
 // Test file for NOKIA5110_TEXT showing use most basic use case "HELLO WORLD" at 0,0 with font number one using Hardware SPI on an arduino UNO.
 // ***************NB NB NOTE **********************
-// Software SPI is the orginal and default setup. For  hardware SPI to work the library must be modified:
-// In file NOKIA5110_TEXT.h , SPI HARDWARE SECTION , comment in #define SPIHW_ON, it is commented out by default
+// Software SPI is the orginal and default setup. 
 //****************************************************
 // URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
+
+/*!
+	@file NOKIA5110_HWSPI.ino
+	@brief Test file for NOKIA5110_TEXT showing use most basic use case "HELLO WORLD" at 0,0 with font number one, hardware SPI for arduino UNO
+	@details URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
+	@note For  hardware SPI to work the library must be modified: In file NOKIA5110_TEXT.h , 	SPI HARDWARE SECTION , comment in #define SPIHW_ON, it is commented out by default
+	@test
+		-# Test 0-B Display Hello world  Hardware SPI
+*/
 
 // Include the library
 #include <NOKIA5110_TEXT.h>

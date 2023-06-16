@@ -1,17 +1,21 @@
-// Test file for NOKIA5110_TEXT showing all 9 fonts. 1-9
-//
-// URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
-//
-// NOTE ************ README NB NB ********************** NOTE:
-//
-// There are Nine fonts , font one is default,
-// For a non-default font to work , One line in the library header file
-// called "NOKIA5110_TEXT_FONT_DATA.h"  Must be modified by USER
-// the Define statement at start of file for Font X must be commented IN.
-// #define NOKIA5110_FONT_X where X is name of font in  FONT DEFINE SECTION.
-// Tests will  not work fully if non-default fonts are not commented in, nothing will appear.
-// For all this example file to work fully all fonts must be commented in
-// NOTE *************** README NB NB ************************ NOTE:
+/*!
+	@file NOKIA5110_FONTS.ino
+	@brief Test file for NOKIA5110_TEXT showing all 9 fonts. 1-9, software SPI
+	@note
+		 -# There are Nine fonts , font one is default,
+		 -# For a non-default font to work , One line in the library header file
+		 -# called "NOKIA5110_TEXT_FONT_DATA.h"  Must be modified by USER
+		 -# the Define statement at start of file for Font X must be commented IN.
+		 -# define NOKIA5110_FONT_X where X is name of font in  FONT DEFINE SECTION.
+		 -# Tests will  not work fully if non-default fonts are not commented in, nothing will appear.
+		 -# For all this example file to work fully all fonts must be commented in
+	@details URL: https://github.com/gavinlyonsrepo/NOKIA5110_TEXT
+	@test
+		-# TEST 1 font 1-6, X by 8 fonts 
+		-# TEST 2 font 7, 12 by 16 font
+		-# TEST 3 font 8, 16 by 24  font
+		-# TEST 4 font 9, 16 by 32 font
+*/
 
 // Include the library.
 #include <NOKIA5110_TEXT.h>
@@ -29,7 +33,7 @@
 NOKIA5110_TEXT mylcd(RST, CE, DC, DIN, CLK);
 
 #define inverse  false
-#define contrast 0xBF // default is 0xBF set in LCDinit, Try 0xB1 - 0xBF if your display is too dark
+#define contrast 0xBF // default is 0xBF set in LCDinit, Try 0xB1 - 0xBF if your display is too dark/dim
 #define bias 0x12 // LCD bias mode 1:48: Try 0x12, 0x13 or 0x14
 
 // TEST delays
@@ -53,13 +57,6 @@ void setup() {
 
 // *********** MAIN LOOP ***********
 void loop() {
-  /*
-    TEST 1 font 1-6, X by 8 fonts
-    TEST 2 font 7, 12 by 16 font
-    TEST 3 font 8, 16 by 24  font
-    TEST 4 font 9, 16 by 32 font
-  */
-
   Test1();
   Test2();
   Test3();
