@@ -12,12 +12,12 @@
   * [Output](#output)
   * [Installation](#installation)
   * [Hardware](#hardware)
-		* [SPI](#spi)
+	* [SPI](#spi)
   * [Software](#software)
-		* [API](#api)
-		* [Fonts](#fonts)
-		* [Bitmaps](#bitmaps)
-		* [Print](#print)
+	* [API](#api)
+	* [Fonts](#fonts)
+	* [Bitmaps](#bitmaps)
+	* [Print](#print)
 
   
 ## Overview
